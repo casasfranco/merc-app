@@ -1,0 +1,7 @@
+.row {
+  @apply flex flex-col sm:space-x-6 sm:flex-row;
+}
+
+.col {
+  @apply flex flex-col flex-1;
+}

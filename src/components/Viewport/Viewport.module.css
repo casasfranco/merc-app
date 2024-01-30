@@ -1,0 +1,25 @@
+.bgArch {
+  @apply flex flex-col bg-fixed bg-no-repeat bg-white;
+  background-position: 50% -30vw;
+  min-height: 80vh;
+}
+.center {
+  @apply my-auto;
+}
+
+@media (min-width: 1280px) {
+  .bgArch {
+    background-position: 50% 100%;
+  }
+}
+
+.main {
+  padding: 10px;
+  @apply flex flex-col items-center pb-20;
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: 33px 52px 52px;
+  }
+}

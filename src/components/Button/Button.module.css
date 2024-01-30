@@ -1,0 +1,51 @@
+.button {
+  @apply flex items-center justify-center outline-none transition duration-300 disabled:cursor-not-allowed border-0;
+}
+
+.color-water {
+  @apply bg-water border-2 border-white;
+}
+.color-light {
+  @apply bg-white;
+  box-shadow: 0px 5px 12px 5px rgba(0, 0, 0, 0.15);
+}
+.color-navy {
+  @apply bg-navy text-white focus:bg-white focus:text-navy hover:bg-white;
+  @apply hover:text-navy hover:border-navy border border-navy;
+  @apply fill-white hover:fill-navy focus:fill-navy;
+}
+
+.color-transparent {
+  @apply focus:underline border-0 fill-navy;
+}
+.color-disabled {
+  @apply text-disabled bg-disabled-light;
+}
+.color-water,
+.color-light {
+  @apply text-navy fill-navy hover:fill-white focus:fill-white;
+  @apply hover:bg-navy hover:text-white focus:text-white focus:bg-navy;
+}
+.color-light,
+.color-transparent {
+  @apply bg-white text-navy;
+}
+
+.variant-default {
+  @apply space-x-3 px-4 h-10 text-xl;
+  min-width: 178px;
+}
+.variant-small {
+  @apply px-5 h-8 border-0 text-base;
+}
+.variant-default,
+.variant-small {
+  @apply rounded-full font-bold space-x-1;
+}
+
+.content-default {
+  @apply text-xl;
+}
+.content-small {
+  @apply text-base;
+}

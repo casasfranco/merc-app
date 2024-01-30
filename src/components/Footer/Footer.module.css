@@ -1,0 +1,45 @@
+.footer {
+  @apply flex flex-col md:flex-row justify-center items-center  bg-warm-gray text-white w-full py-8 px-11 text-center md:text-left;
+}
+
+.divider {
+  @apply flex flex-col w-full mb-8 md:mb-2 text-sm md:text-xl;
+}
+
+.text {
+  @apply flex flex-col md:flex-row mb-8 md:mb-0;
+}
+
+.heading {
+  @apply mr-2 mb-2 text-xl;
+}
+
+.phone {
+  @apply font-bold;
+}
+
+.buttons {
+  @apply flex flex-col items-center md:flex-row;
+}
+
+.button {
+  @apply md:mr-5 md:mt-0;
+  margin-top: 14px;
+}
+
+.message {
+  @apply mt-9 mb-2 md:mr-5 text-xl;
+}
+
+.logo {
+  @apply flex-none;
+}
+
+.logoContainer {
+  @apply w-full h-full relative;
+}
+
+.copy {
+  font-size: 10px;
+  line-height: 15px;
+}

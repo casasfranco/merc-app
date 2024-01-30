@@ -1,0 +1,26 @@
+.container {
+  @apply flex flex-col items-center w-full mb-4;
+}
+
+.titleContainer,
+.stageContainer {
+  @apply flex flex-col  w-full max-w-3xl mx-auto;
+  min-width: 280px;
+}
+
+.sectionContainer {
+  @apply w-full;
+}
+
+.stageContainer {
+  @apply mb-4;
+}
+
+.subtitle {
+  @apply text-center;
+}
+
+.buttons {
+  @apply flex flex-col-reverse items-center space-y-reverse space-y-4 mt-8;
+  @apply sm:flex-row sm:space-y-0 sm:space-x-4 sm:justify-center;
+}

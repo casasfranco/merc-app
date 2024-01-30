@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+## Estructura General del Proyecto
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- `/src`: Carpeta principal de tu código fuente.
+- `/components`: Aquí irán los componentes React reutilizables.
+- `/pages`: Cada página de tu aplicación.
+- `/store`: Gestión del estado con Rematch.
+- `/models`: Los modelos de Rematch que representan la lógica de negocio.
+- `/services`: Servicios para la comunicación con el backend.
+- `/utils`: Funciones de utilidad.
+- `/styles`: Estilos globales y configuraciones de Tailwind.
+- `/public`: Recursos públicos como imágenes y archivos estáticos.
 
-## Available Scripts
+## Componentes y Páginas
 
-In the project directory, you can run:
+Componentes Reutilizables: Por ejemplo, botones, tarjetas, formularios, etc. Estos deben ser lo más genéricos posible para facilitar su reutilización.
+Páginas: Cada página representa una vista completa (por ejemplo, Home, Productos, Clientes). Estas utilizarán los componentes reutilizables.
 
-### `npm start`
+## Gestión del Estado con Rematch
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Modelos de Rematch: Cada modelo representa una parte lógica de tu negocio (por ejemplo, productos, usuarios). Aquí manejarás acciones y reducers.
+Comunicación con el Backend
+Servicios: Establece servicios para manejar la comunicación con el backend (APIs, autenticación, etc.).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Estilos
 
-### `npm test`
+Tailwind: Utiliza clases de Tailwind para mantener un diseño consistente. Puedes personalizar la configuración para adaptarla a tu branding.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Buenas Prácticas
 
-### `npm run build`
+Desacoplamiento: Mantén tu código desacoplado para facilitar el mantenimiento y la prueba de componentes individuales.
+Nomenclatura Consistente: Usa nombres claros y consistentes para componentes, funciones y variables.
+Documentación: Documenta los componentes y funciones importantes para que otros desarrolladores entiendan su propósito.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Herramientas de Desarrollo
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ESLint y Prettier: Para mantener el código limpio y siguiendo buenas prácticas.
+Herramientas de Testing: Considera usar Jest y React Testing Library para pruebas unitarias y de integración.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Store
 
-### `npm run eject`
+El store de Rematch se configura en store/index.js. Aquí se inicializa el store y se pueden agregar modelos.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Modelos
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Los modelos se definen en store/models. Cada modelo representa una parte del estado y contiene reducers para actualizar dicho estado.

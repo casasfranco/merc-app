@@ -1,0 +1,13 @@
+.spinner {
+  @apply text-center inline-block align-top;
+}
+
+.spinner-water {
+  @apply fill-water;
+}
+.spinner-white {
+  @apply fill-white;
+}
+.spinner-navy {
+  @apply fill-navy;
+}

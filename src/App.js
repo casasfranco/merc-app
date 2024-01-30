@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, Routes } from 'react-router';
 
-function App() {
+// import { withLDProvider } from 'launchdarkly-react-client-sdk';
+
+// import { Passwordless } from 'src/flows';
+import {
+  // Cancel,
+  Login,
+  // Resume,
+  //  MaintenanceMode,
+} from './pages';
+// import config from './config';
+// import { InitialDisclaimer } from './pages';
+// import { useFeatureFlags } from './lib/hooks';
+
+// const ldConfig = {
+//   clientSideID: config.launchDarkly.clientId,
+//   user: {
+//     key: 'anonymous',
+//     custom: { clientType: 'fnol' },
+//     anonymous: true,
+//   },
+// };
+
+const Test = () => <h1>Holaaa</h1>;
+const App = () => {
+  // const { enableFnolMaintenanceMode } = useFeatureFlags();
+
+  // if (enableFnolMaintenanceMode) {
+  //   return <MaintenanceMode />;
+  // }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route exact path="/login" Component={Login} />
+      <Route exact path="/test" Component={Test} />
+      {/* <Route exact path="/resume" component={Resume} />
+      <Route exact path="/cancel" component={Cancel} />
+      <Route path="/submit" component={Passwordless} />
+      <Route path="/" component={InitialDisclaimer} /> */}
+    </Routes>
   );
-}
+};
 
 export default App;
