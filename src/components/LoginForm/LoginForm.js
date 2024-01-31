@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useForm, useModel } from '../../lib/hooks';
 import { Button, Form, Input, Loading, Page } from '../../components';
@@ -6,6 +7,7 @@ import { Button, Form, Input, Loading, Page } from '../../components';
 import { validateEmail, validateNotEmpty } from '../../lib/validations';
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const { login } = useModel.user.dispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,13 +30,13 @@ const LoginForm = () => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setLoading(true);
-      await login(data);
+      const userData = await login(data);
       setLoading(false);
+      if (userData) navigate('/home');
     } catch (error) {
       setLoading(false);
       setError(error);
     }
-    // await nextPage(null, { skipUpdate: true });
   });
 
   if (loading) return <Loading />;

@@ -1,10 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import FocusTrap from 'focus-trap-react';
-import { useAuth0, useModel, useToggle } from 'src/lib/hooks';
-import { Icon, Modal, Button } from 'src/common';
+
+import { useAuth0, useModel, useToggle } from '../../lib/hooks';
+import { Icon, Modal, Button } from '../../components';
 
 import classNames from 'tailwindcss-classnames';
 import styles from './Header.module.css';
@@ -27,7 +28,7 @@ const NavLink = ({ label, icon, href, size, ...props }) => (
 );
 
 const NavActions = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { logout, user } = useAuth0();
   const btnRef = useRef(null);
   const tooltipRef = useRef(null);
@@ -38,7 +39,7 @@ const NavActions = () => {
   const location = useLocation();
 
   const goToCancel = () => {
-    history.push('/cancel');
+    navigate('/cancel');
     handleClose();
   };
 
