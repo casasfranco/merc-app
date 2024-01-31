@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Viewport, CardContainer } from '../../components';
 import styles from './Page.module.css';
+import classnames from 'tailwindcss-classnames';
 
 const Page = ({ title, subtitle, children }) => (
   <Viewport>
@@ -22,12 +23,10 @@ const Page = ({ title, subtitle, children }) => (
   </Viewport>
 );
 
-const Section = ({ title, children, noCardStyle }) => (
-  <div className={styles.sectionContainer}>
+const Section = ({ title, children, cardStyle, className }) => (
+  <div className={classnames(styles.sectionContainer, className)}>
     {title && <h2 className={styles.titleContainer}>{title}</h2>}
-    <CardContainer card={noCardStyle ? false : undefined}>
-      {children}
-    </CardContainer>
+    <CardContainer card={cardStyle}>{children}</CardContainer>
   </div>
 );
 

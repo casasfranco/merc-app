@@ -22,12 +22,17 @@ const Navbar = () => {
         <div
           className={`${isOpen ? 'block' : 'hidden'} md:block flex flex-col md:flex-row pt-4 md:pt-0`}
         >
-          {/* Enlaces del menú */}
           <Link
-            to="/home2"
+            to="/home"
             className=" px-4 py-2 hover:bg-gray-700 hover:text-white hover:rounded-lg"
           >
-            Ruta 1
+            Home
+          </Link>
+          <Link
+            to="/new-contract"
+            className=" px-4 py-2 hover:bg-gray-700 hover:text-white hover:rounded-lg"
+          >
+            Crear contrato (admin)
           </Link>
           <Link
             to="/ruta1"

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { useModel } from '../hooks';
 
 const withSession = (Component) => {
   const SessionCheck = (props) => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const user = useModel.user();
     const token = user?.token;
@@ -25,10 +26,10 @@ const withSession = (Component) => {
     useEffect(() => {
       if (!isTokenValid()) {
         navigate('/login');
-      } else {
+      } else if (location.pathname === '/login') {
         navigate('/home');
       }
-    }, [token, navigate]);
+    }, [token, navigate, location.pathname]);
 
     return isTokenValid() ? <Component {...props} /> : null;
   };

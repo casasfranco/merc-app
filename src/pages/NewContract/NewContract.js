@@ -1,10 +1,10 @@
 import React from 'react';
 import { Page } from '../../components';
-import styles from './Home.module.css';
+import styles from './NewContract.module.css';
 
-const Home = () => {
+const NewContract = () => {
   return (
-    <Page>
+    <Page title="Formulario para solicitar un nuevo contrato">
       <div className="flex w-full justify-around">
         <div className="flex flex-col flex-wrap justify-between w-full">
           <Page.Section cardStyle={true} className={styles.card}>
@@ -18,20 +18,9 @@ const Home = () => {
             <p>Contrato 0-03</p>
           </Page.Section>
         </div>
-        <div className="flex flex-col flex-wrap justify-between w-full">
-          <Page.Section cardStyle={true} className={styles.card}>
-            <h2>Contratos en proceso de comprobación</h2>
-            <p>Contrato 0-02</p>
-          </Page.Section>
-
-          <Page.Section cardStyle={true} className={styles.card}>
-            <h2>Contratos en viaje</h2>
-            <p>Contrato 0-01</p>
-          </Page.Section>
-        </div>
       </div>
     </Page>
   );
 };
 
-export default Home;
+export default NewContract;
