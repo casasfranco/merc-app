@@ -1,3 +1,5 @@
+import { useAuth } from '../lib/hooks/useAuth';
+
 const user = {
   state: JSON.parse(sessionStorage.getItem('user')),
   reducers: {
@@ -30,6 +32,28 @@ const user = {
         sessionStorage.removeItem('user');
         return null;
       }
+    },
+    login: async (credentials, root) => {
+      const { login } = useAuth();
+
+      const { user } = credentials;
+      const { login: userData } = await login(user);
+
+      console.log(userData);
+
+      const userState = {
+        ...root.user,
+        ...userData,
+      };
+      dispatch.user.set(userState);
+      console.log({ ...root.user, ...userData });
+      sessionStorage.setItem(
+        'user',
+        JSON.stringify({ ...root.user, ...userData })
+      );
+      return userState;
+      // dispatch.user.save(null);
+      // dispatch({ type: 'global/reset' });
     },
     signOut: () => {
       dispatch.user.save(null);

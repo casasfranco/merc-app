@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { useForm } from '../../lib/hooks';
-import { Button, Form, Input, Page } from '../../components';
+import { useForm, useModel } from '../../lib/hooks';
+import { Button, Form, Input, Loading, Page } from '../../components';
 
 import { validateEmail, validateNotEmpty } from '../../lib/validations';
 
 const LoginForm = () => {
+  const { login } = useModel.user.dispatch();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -22,14 +26,19 @@ const LoginForm = () => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-    // await startLogin(data.loss.reportedBy.email);
-    // data.loss.reportedBy.participantRole = 'Unknown';
-
-    // stageChanges(data);
+    try {
+      setLoading(true);
+      await login(data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error);
+    }
     // await nextPage(null, { skipUpdate: true });
   });
 
+  if (loading) return <Loading />;
+  if (error) console.log(error);
   return (
     <Page title="Iniciar Sesión">
       <Page.Section noCardStyle={true}>
@@ -38,34 +47,31 @@ const LoginForm = () => {
           <Form.Row>
             <Form.Col>
               <Input
-                label="First Name"
-                {...register('loss.reportedBy.firstName', {
-                  required: 'Required',
-                  validate: validateNotEmpty,
-                })}
-                error={errors?.loss?.reportedBy?.firstName?.message}
-              />
-            </Form.Col>
-            <Form.Col>
-              <Input
                 label="Email"
-                {...register('loss.reportedBy.email', {
+                {...register('user.email', {
                   required: 'Required',
                   validate: validateEmail,
                   message: 'Invalid email',
                 })}
-                error={errors?.loss?.reportedBy?.email?.message}
+                error={errors?.user?.email?.message}
+              />
+            </Form.Col>
+            <Form.Col>
+              <Input
+                label="Password"
+                type="password"
+                {...register('user.password', {
+                  required: 'Required',
+                  validate: validateNotEmpty,
+                })}
+                error={errors?.user?.password?.message}
               />
             </Form.Col>
           </Form.Row>
         </Form>
       </Page.Section>
       <Page.Buttons>
-        <Button
-          color="navy"
-          onClick={() => console.log('Enviando')}
-          loading={isSubmitting}
-        >
+        <Button color="navy" onClick={onSubmit} loading={isSubmitting}>
           Next Step
         </Button>
       </Page.Buttons>

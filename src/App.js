@@ -10,6 +10,7 @@ import {
   // Resume,
   //  MaintenanceMode,
 } from './pages';
+import AuthRedirect from './lib/hooks/authRedirect';
 // import config from './config';
 // import { InitialDisclaimer } from './pages';
 // import { useFeatureFlags } from './lib/hooks';
@@ -31,14 +32,16 @@ const App = () => {
   //   return <MaintenanceMode />;
   // }
   return (
-    <Routes>
-      <Route exact path="/login" Component={Login} />
-      <Route exact path="/test" Component={Test} />
-      {/* <Route exact path="/resume" component={Resume} />
+    <AuthRedirect>
+      <Routes>
+        <Route exact path="/login" Component={Login} />
+        <Route exact path="/test" Component={Test} />
+        {/* <Route exact path="/resume" component={Resume} />
       <Route exact path="/cancel" component={Cancel} />
       <Route path="/submit" component={Passwordless} />
-      <Route path="/" component={InitialDisclaimer} /> */}
-    </Routes>
+    <Route path="/" component={InitialDisclaimer} /> */}
+      </Routes>
+    </AuthRedirect>
   );
 };
 

@@ -13,6 +13,7 @@ const Input = React.forwardRef(
       disabled = false,
       success = false,
       containerClassName,
+      type,
       ...props
     },
     ref
@@ -27,6 +28,7 @@ const Input = React.forwardRef(
         ref={ref}
         id={id ?? name}
         name={name}
+        type={type ?? 'text'}
         className={classNames(
           styles.input,
           error && styles.error,

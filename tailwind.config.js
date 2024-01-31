@@ -41,8 +41,8 @@ module.exports = {
         navy: {
           DEFAULT: '#003972',
         },
-        tradewind: {
-          DEFAULT: '#59b7b3',
+        green: {
+          DEFAULT: '#c6e497',
         },
         disabled: {
           light: '#DBDBDB',

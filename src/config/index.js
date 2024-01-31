@@ -1,3 +1,9 @@
+const urls = {
+  user: {
+    login: '/login',
+  },
+};
+
 const config = {
   debug: process.env.REACT_APP_DEBUG,
   a11y: process.env.REACT_APP_A11Y,
@@ -28,6 +34,7 @@ const config = {
     videoSize: 500,
     otherSize: 10,
   },
+  urls,
 };
 
 export default config;

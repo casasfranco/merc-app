@@ -13,7 +13,7 @@ const Page = ({ title, subtitle, children }) => (
         </div>
       ) : ( */}
       <div className={styles.titleContainer}>
-        <h1 className>{title}</h1>
+        <h1>{title}</h1>
         <div className={styles.subtitle}>{subtitle}</div>
       </div>
       {/* )} */}
