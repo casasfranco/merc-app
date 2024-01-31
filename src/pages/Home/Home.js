@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from '../components/Button';
+import Button from '../../components/Button';
 
-const HomePage = () => {
+const Home = () => {
   const handleClick = () => {
     alert('¡Botón clickeado!');
   };
@@ -14,4 +14,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;
