@@ -1,10 +1,8 @@
 import { api } from './useApi/useApi';
 import config from '../../config';
 import { mutations } from '../../graphql/user';
-import useModel from './useModel';
 
 export const useAuth = () => {
-  const { signOut } = useModel.user.dispatch();
   const {
     urls: { user },
   } = config;
@@ -23,9 +21,5 @@ export const useAuth = () => {
     }
   };
 
-  const logout = () => {
-    signOut();
-  };
-
-  return { login, logout };
+  return { login };
 };

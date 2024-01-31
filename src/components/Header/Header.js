@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './Header.module.css';
 import { mercLogo } from '../../assets/img';
+import Navbar from './Navbar';
 
 const Header = () => {
   return (
     <header className="text-gray-600 body-font">
-      <div className="container mx-auto flex flex-wrap px-5 pt-3 flex-col md:flex-row items-center">
+      <div className="container mx-auto flex flex-wrap px-5 pt-3 flex-row justify-between items-center">
         <div className={styles.logoContainer}>
           <img
             src={mercLogo}
@@ -14,7 +15,8 @@ const Header = () => {
             className={styles.logo}
           />
         </div>
-        {false && (
+        <Navbar />
+        {/* {false && (
           <>
             <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
               <a className="mr-5 hover:text-gray-900">Contrato</a>
@@ -34,7 +36,7 @@ const Header = () => {
               </svg>
             </button>
           </>
-        )}
+        )} */}
       </div>
     </header>
     // <header className={styles.header}>

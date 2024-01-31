@@ -55,6 +55,7 @@ const user = {
     signOut: () => {
       dispatch.user.save(null);
       dispatch({ type: 'global/reset' });
+      sessionStorage.clear();
     },
   }),
 };
