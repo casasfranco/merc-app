@@ -2,40 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  box-sizing: border-box;
-  @apply font-content;
-}
-
-html {
-  font-size: 16px;
-}
-
-body {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  @apply text-warm-gray text-base;
-}
-
-input,
-select {
-  @apply outline-none;
-  box-sizing: border-box;
-  display: inline-block;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-.ReactModalPortal {
-  position: absolute;
-  height: 1px;
-  width: 1px;
-}
-
 h1 {
   @apply text-navy font-bold text-3xl mb-2;
 }

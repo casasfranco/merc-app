@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useForm as useHookForm } from 'react-hook-form';
-// import { scrollToTop } from '../util';
 import { useErrorHandling } from './';
 
 const useForm = ({ onError, ...hookFormOptions } = {}) => {

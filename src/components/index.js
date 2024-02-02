@@ -10,3 +10,5 @@ export { default as Page } from './Page';
 export { default as ProductList } from './ProductList';
 export { default as Spinner } from './Spinner';
 export { default as Viewport } from './Viewport';
+export { default as Error } from './Error';
+export { default as Select } from './Select';

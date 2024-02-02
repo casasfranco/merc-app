@@ -25,6 +25,7 @@ const withSession = (Component) => {
 
     useEffect(() => {
       if (!isTokenValid()) {
+        sessionStorage.clear();
         navigate('/login');
       } else if (location.pathname === '/login') {
         navigate('/home');
