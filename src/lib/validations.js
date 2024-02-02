@@ -2,12 +2,8 @@ import dayjs from 'dayjs';
 import config from '..//config';
 
 export const validateEmail = (value) => {
-  // if (!isemail.validate(value)) {
-  //   return 'Invalid email';
-  // }
-  console.log(value);
-
-  return true;
+  const validateEmailReg = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  return validateEmailReg.test(value);
 };
 
 export const validatePolicyNumber = (rawInput = '') => {
@@ -56,4 +52,8 @@ export const validateNotEmpty = (value = '') => {
   }
 
   return true;
+};
+
+export const validateStreetNumber = (value = 0) => {
+  if (value === '' || /^[0-9]+$/.test(value)) return true;
 };

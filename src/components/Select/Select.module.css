@@ -1,0 +1,67 @@
+.relativeContent {
+  @apply relative z-0 w-full;
+}
+
+.select {
+  @apply box-border m-0 relative inline-block h-9 py-0.5 p-2 text-base w-full;
+  @apply border border-solid border-warm-gray transition-all duration-300 appearance-none;
+  @apply bg-transparent rounded-none cursor-pointer whitespace-nowrap overflow-ellipsis z-10;
+  padding-right: 18px;
+}
+
+.select.no-focus:focus {
+  @apply border border-solid border-warm-gray outline-none;
+  @apply shadow-none;
+}
+
+.select:focus {
+  @apply focus:border-steel-blue focus:shadow-steel-blue outline-none;
+  border-right-width: 1px;
+}
+
+.container {
+  @apply bg-white flex absolute h-9 py-0.5 top-6 w-full justify-between items-center;
+}
+
+.selectContent {
+  @apply flex flex-col;
+}
+
+.icon {
+  @apply cursor-pointer pointer-events-none absolute right-4;
+}
+
+.placeholder {
+  @apply text-warm-gray-light pl-2 text-base inline-block border-none cursor-pointer pointer-events-none bg-transparent;
+}
+
+.errorContainer {
+  margin-top: 6px;
+  min-height: 22px;
+}
+
+.errorText {
+  @apply text-error text-sm flex flex-row-reverse;
+}
+
+.error {
+  @apply border border-solid border-error;
+}
+
+.error:focus {
+  @apply border-error border-r outline-none shadow-error;
+}
+
+.success {
+  @apply border border-success;
+}
+
+.success:focus {
+  @apply border-success border-r outline-none shadow-success;
+}
+
+.select[disabled],
+.select[disabled]:hover {
+  @apply cursor-not-allowed text-disabled bg-disabled-light shadow-none border-disabled-light;
+  text-shadow: none;
+}

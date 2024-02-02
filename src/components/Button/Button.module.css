@@ -13,8 +13,12 @@
   @apply bg-navy text-white focus:bg-white focus:text-navy hover:bg-white;
   @apply hover:text-navy hover:border-navy border border-navy;
   @apply fill-white hover:fill-navy focus:fill-navy;
+  background-color: #003972 !important;
 }
-
+.color-navy:hover {
+  background-color: #0957a4 !important;
+  @apply text-white;
+}
 .color-transparent {
   @apply focus:underline border-0 fill-navy;
 }

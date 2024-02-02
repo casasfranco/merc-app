@@ -10,11 +10,15 @@ export const useAuth = () => {
   const { LOGIN } = mutations;
 
   const login = async (credentials) => {
-    const response = await api.graphQl.post(user.login, LOGIN, {
-      loginInput: { ...credentials },
-    });
-    console.log(response.data);
-    return response.data;
+    try {
+      const response = await api.graphQl.post(user.login, LOGIN, {
+        loginInput: { ...credentials },
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error en el inicio de sesión:', error);
+    }
   };
 
   return { login };

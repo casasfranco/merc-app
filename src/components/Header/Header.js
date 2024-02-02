@@ -1,23 +1,55 @@
 import React from 'react';
 import styles from './Header.module.css';
-// import { upcLogo } from 'src/assets/img';
-// import NavActions from './NavActions';
-// import { useFeatureFlags } from 'src/lib/hooks';
+import { mercLogo } from '../../assets/img';
+import Navbar from './Navbar';
 
 const Header = () => {
-  // const { enableFnolMaintenanceMode } = useFeatureFlags();
   return (
-    <header className={styles.header}>
-      <div className={styles.logoContainer}>
-        {/* <img
-          src={upcLogo}
-          alt="UPC Insurance logo"
-          id="logo"
-          className={styles.logo}
-        /> */}
+    <header className="text-gray-600 body-font">
+      <div className="container mx-auto flex flex-wrap px-5 pt-3 flex-row justify-between items-center">
+        <div className={styles.logoContainer}>
+          <img
+            src={mercLogo}
+            alt="MERC frutas y semillas logo"
+            id="logo"
+            className={styles.logo}
+          />
+        </div>
+        <Navbar />
+        {/* {false && (
+          <>
+            <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
+              <a className="mr-5 hover:text-gray-900">Contrato</a>
+              <a className="mr-5 hover:text-gray-900">Second Link</a>
+              <a className="mr-5 hover:text-gray-900">Third Link</a>
+              <a className="mr-5 hover:text-gray-900">Fourth Link</a>
+            </nav>
+            <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+              Button
+              <svg
+                fill="none"
+                stroke="currentColor"
+                className="w-4 h-4 ml-1"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </>
+        )} */}
       </div>
-      {/* {!enableFnolMaintenanceMode && <NavActions />} */}
     </header>
+    // <header className={styles.header}>
+    //   <div className={styles.logoContainer}>
+    //     <img
+    //       src={upcLogo}
+    //       alt="UPC Insurance logo"
+    //       id="logo"
+    //       className={styles.logo}
+    //     />
+    //   </div>
+    //   {!enableFnolMaintenanceMode && <NavActions />}
+    // </header>
   );
 };
 
