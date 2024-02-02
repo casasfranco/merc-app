@@ -32,13 +32,19 @@ const Navbar = () => {
             to="/new-contract"
             className=" px-4 py-2 hover:bg-gray-700 hover:text-white hover:rounded-lg"
           >
-            Crear contrato (+)
+            Crear contrato(+)
           </Link>
           <Link
             to="/new-company"
             className=" px-4 py-2 hover:bg-gray-700 hover:text-white hover:rounded-lg"
           >
-            Crear compañia (+)
+            Crear compañia(+)
+          </Link>
+          <Link
+            to="/product"
+            className=" px-4 py-2 hover:bg-gray-700 hover:text-white hover:rounded-lg"
+          >
+            Producto(+)
           </Link>
           <Link
             to="/ruta1"
