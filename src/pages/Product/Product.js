@@ -10,7 +10,12 @@ import {
 } from '../../components';
 import { useForm } from '../../lib/hooks';
 import { measureUnitsSelect } from '../../lib/constants';
-import { createProduct } from '../../lib/services/product';
+import {
+  createPacking,
+  createProduct,
+  createRelationProductPacking,
+} from '../../lib/services/product';
+import { validateQuantityOfProductNumber } from '../../lib/validations';
 
 const Product = () => {
   const [loading, setLoading] = useState(false);
@@ -33,21 +38,37 @@ const Product = () => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
     try {
       setLoading(true);
-      const { product } = data;
-      if (isNewPackingSelected) delete product.packingId;
-      const response = await createProduct(product);
-      console.log({ response });
+      const { product, packingId: withPackingId, packing, quantity } = data;
+
+      let packingId = null;
+
+      // Creo producto
+      const { createProduct: productResponse } = await createProduct(product);
+
+      if (withPackingId != 'new') packingId = withPackingId;
+
+      if (packing && withPackingId === 'new') {
+        const { createPacking: packingResponse } = await createPacking(packing);
+        packingId = packingResponse.id;
+      }
+
+      await createRelationProductPacking({
+        productId: productResponse.id,
+        packingId,
+        quantity: parseFloat(quantity),
+      });
+
       setFormError(null);
+      setLoading(false);
     } catch (error) {
       setFormError(`${error}`);
       setLoading(false);
     }
   });
 
-  const isNewPackingSelected = watch('product.packingId') === 'new';
+  const isNewPackingSelected = watch('packingId') === 'new';
 
   if (loading) return <Loading />;
 
@@ -81,7 +102,7 @@ const Product = () => {
             <Form.Col>
               <Select
                 label="Empaque"
-                error={errors?.product?.packingId?.message}
+                error={errors?.packingId?.message}
                 // options={
                 //   enableLiabilityCols
                 //     ? lossMapping?.types
@@ -91,10 +112,24 @@ const Product = () => {
                   { id: 'new', title: 'Crear nuevo empaque' },
                   { id: 'asdas-2312-sad2-xad212', title: 'Bolsa 25 Kg' },
                 ]}
-                {...register('product.packingId', { required: 'Required' })}
+                {...register('packingId', { required: 'Required' })}
               />
             </Form.Col>
-            <Form.Col> </Form.Col>
+            <Form.Col>
+              <Input
+                label="Cantidad por paquete"
+                type="number"
+                step={1}
+                min={0}
+                error={errors?.quantity?.message}
+                {...register('quantity', {
+                  required: 'Required',
+                  validate: (value) =>
+                    validateQuantityOfProductNumber(value) ||
+                    'El peso del producto empaquetado debe ser entero',
+                })}
+              />
+            </Form.Col>
           </Form.Row>
           {isNewPackingSelected && (
             <>
@@ -106,7 +141,7 @@ const Product = () => {
                   <Input
                     label="Descripción"
                     error={errors?.product?.packing?.description?.message}
-                    {...register('product.packing.description', {
+                    {...register('packing.description', {
                       required: 'Required',
                     })}
                   />
@@ -116,7 +151,7 @@ const Product = () => {
                     label="Unidad"
                     error={errors?.product?.packing?.unit.message}
                     options={measureUnitsSelect}
-                    {...register('product.packing.unit', {
+                    {...register('packing.unit', {
                       required: 'Required',
                     })}
                   />

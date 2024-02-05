@@ -10,6 +10,10 @@ const urls = {
     create: '/packing',
     getAll: '/packings',
   },
+  productPackingRelation: {
+    create: '/productPacking',
+    getAll: '/productPackings',
+  },
 };
 
 const config = {

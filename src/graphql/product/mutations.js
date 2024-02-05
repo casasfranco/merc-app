@@ -1,5 +1,5 @@
 const productMutations = {
-  CREATE: `
+  CREATE_PRODUCT: `
   mutation CreateProduct($createProductInput: CreateProductInput!) {
     createProduct(createProductInput: $createProductInput) {
       id

@@ -11,6 +11,7 @@ const App = () => {
       <Route exact path="/new-company" Component={NewCompany} />
       <Route exact path="/product" Component={Product} />
       <Route exact path="/home" Component={Home} />
+      <Route path="/" Component={Home} />
     </Routes>
   );
 };

@@ -1,21 +1,42 @@
 import config from '../../../config';
 import { productMutations } from '../../../graphql/product';
+import { packingMutations } from '../../../graphql/packing';
+import { productPackingRelationMutations } from '../../../graphql/productPackingRelation';
 import { api } from '../../hooks/useApi/useApi';
 
 const {
-  urls: { product: productUrl },
+  urls: {
+    product: productUrl,
+    packing: packingUrl,
+    productPackingRelation: productPackingRelationUrl,
+  },
 } = config;
 
-const { CREATE } = productMutations;
+const { CREATE_PRODUCT } = productMutations;
+const { CREATE_PACKING } = packingMutations;
+const { CREATE_PRODUCT_PACKING_REL } = productPackingRelationMutations;
 
-const createProduct = async (formData) => {
-  const { packing, ...product } = formData;
-  console.log({ packing });
-  const createProductInput = {
-    ...product,
+const createProduct = async (product) => {
+  try {
+    const createProductInput = {
+      ...product,
+    };
+    const response = await api.secure.post(productUrl.create, CREATE_PRODUCT, {
+      createProductInput,
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const createPacking = async (packing) => {
+  const createPackingInput = {
+    ...packing,
   };
-  const response = await api.secure.post(productUrl.create, CREATE, {
-    createProductInput,
+  const response = await api.secure.post(packingUrl.create, CREATE_PACKING, {
+    createPackingInput,
   });
 
   if (response.errors) {
@@ -26,6 +47,24 @@ const createProduct = async (formData) => {
   return response.data;
 };
 
-// const createPacking = (formData) => {};
+const createRelationProductPacking = async (formData) => {
+  const createProductPackingInput = {
+    ...formData,
+  };
+  const response = await api.secure.post(
+    productPackingRelationUrl.create,
+    CREATE_PRODUCT_PACKING_REL,
+    {
+      createProductPackingInput,
+    }
+  );
 
-export { createProduct };
+  if (response.errors) {
+    const error = response.errors[0].extensions.response;
+    throw new Error(`${error.error} - ${error.statusCode} - ${error.message}`);
+  }
+
+  return response.data;
+};
+
+export { createProduct, createPacking, createRelationProductPacking };
