@@ -1,18 +1,10 @@
 import React from 'react';
-import {
-  Button,
-  Error,
-  Form,
-  Input,
-  // Input,
-  Page,
-} from '../../components';
+import { Button, Error, Form, Input, Page } from '../../components';
 import { useForm } from '../../lib/hooks';
 
 import NewAddress from './NewAddress';
 
-const NewContract = () => {
-  // const [createAddress, setCreateAddress] = useState(false);
+const Company = () => {
   const {
     register,
     handleSubmit,
@@ -24,7 +16,6 @@ const NewContract = () => {
     mode: 'onChange',
     onError: async ({ err, setFormError, defaultOnError }) => {
       if (err.statusCode) {
-        // setFormError(handleStartLoginError(err));
         setFormError(err);
       } else {
         await defaultOnError();
@@ -34,21 +25,8 @@ const NewContract = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
-
     setFormError(null);
-    // const causeOfLossQuestions = causeOfLossQuestionsMapping[data?.causeOfLoss];
-
-    // await nextPage(merge({}, pendingChanges, data));
   });
-
-  // const newAddress = watch('newAddress');
-  // useEffect(() => {
-  //   if (newAddress === 'new') {
-  //     setCreateAddress(true);
-  //   } else {
-  //     setCreateAddress(false);
-  //   }
-  // }, [newAddress]);
 
   return (
     <Page title="Formulario para solicitar un nuevo contrato">
@@ -94,4 +72,4 @@ const NewContract = () => {
   );
 };
 
-export default NewContract;
+export default Company;
