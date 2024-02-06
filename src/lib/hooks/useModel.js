@@ -8,17 +8,10 @@ function createModelHook(key) {
 
 const useModel = {
   fnol: createModelHook('fnol'),
+  product: createModelHook('product'),
   session: createModelHook('session'),
   user: createModelHook('user'),
   updated: createModelHook('updated'),
-};
-
-useModel.fnol.defaults = (options = {}) => {
-  const existingFnol = useModel.fnol();
-  const { pageIndex, furthestIndex } = useModel.session();
-
-  const isHistorical = pageIndex < furthestIndex;
-  return isHistorical || options?.forceDefaults ? existingFnol : {};
 };
 
 export default useModel;

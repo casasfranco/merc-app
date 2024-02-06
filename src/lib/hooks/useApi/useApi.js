@@ -57,43 +57,26 @@ api.graphQl = {
         headers: getHeaders(options),
       }
     );
-
     return data;
   },
 };
 
 api.secure = {
-  get: (path, options = {}) =>
-    api.get('/secure' + path, {
-      ...options,
-      headers: getHeaders(options, true),
-    }),
-  post: (path, body, options = {}) =>
-    api.post('/secure' + path, body, {
-      ...options,
-      headers: getHeaders(options, true),
-    }),
-  put: (path, body, options = {}) =>
-    api.put('/secure' + path, body, {
-      ...options,
-      headers: getHeaders(options, true),
-    }),
-  patch: (path, body, options = {}) =>
-    api.patch('/secure' + path, body, {
-      ...options,
-      headers: getHeaders(options, true),
-    }),
-  delete: (path, options = {}) =>
-    api.delete('/secure' + path, {
-      ...options,
-      headers: getHeaders(options, true),
-    }),
+  post: async (path, query, variables = {}, options = {}) => {
+    const { data } = await axios.post(
+      config.api.baseUrl + path,
+      {
+        query,
+        variables,
+      },
+      {
+        ...options,
+        headers: getHeaders(options, true),
+      }
+    );
+    return data;
+  },
 };
-
-api.fakeLoad = (data) =>
-  new Promise((resolve) => {
-    setTimeout(() => resolve({ data }), 1000);
-  });
 
 export { api };
 

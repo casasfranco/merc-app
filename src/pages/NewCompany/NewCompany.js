@@ -77,24 +77,6 @@ const NewContract = () => {
               />
             </Form.Col>
           </Form.Row>
-          <Form.Row>
-            {/* <Form.Col>
-              <Select
-                label="Dirección"
-                error={errors?.newAddress?.message}
-                // options={
-                //   enableLiabilityCols
-                //     ? lossMapping?.types
-                //     : lossMapping.types.filter((tol) => tol.id !== 'Liability')
-                // }
-                options={[
-                  { id: 'new', title: 'Crear una nueva dirección' },
-                  { id: 'asdas-2312-sad2-xad212', title: 'Manuel alberti 860' },
-                ]}
-                {...register('newAddress', { required: 'Required' })}
-              />
-            </Form.Col> */}
-          </Form.Row>
           <NewAddress register={register} errors={errors} />
         </Form>
       </Page.Section>

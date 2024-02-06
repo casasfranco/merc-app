@@ -56,4 +56,10 @@ export const validateNotEmpty = (value = '') => {
 
 export const validateStreetNumber = (value = 0) => {
   if (value === '' || /^[0-9]+$/.test(value)) return true;
+  return false;
+};
+
+export const validateQuantityOfProductNumber = (value = 0) => {
+  if (value === '' || /^[0-9]+(\.[0-9]+)?$/.test(value)) return true;
+  return false;
 };

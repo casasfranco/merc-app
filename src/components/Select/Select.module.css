@@ -3,14 +3,14 @@
 }
 
 .select {
-  @apply box-border m-0 relative inline-block h-9 py-0.5 p-2 text-base w-full;
-  @apply border border-solid border-warm-gray transition-all duration-300 appearance-none;
-  @apply bg-transparent rounded-none cursor-pointer whitespace-nowrap overflow-ellipsis z-10;
+  @apply box-border m-0 mt-1 relative inline-block h-9 py-0.5 p-2 text-base w-full;
+  @apply border border-solid border-gray-300 transition-all duration-300 appearance-none rounded-md;
+  @apply bg-transparent cursor-pointer whitespace-nowrap overflow-ellipsis z-10;
   padding-right: 18px;
 }
 
 .select.no-focus:focus {
-  @apply border border-solid border-warm-gray outline-none;
+  @apply border border-solid border-gray-300 outline-none;
   @apply shadow-none;
 }
 
@@ -23,16 +23,20 @@
   @apply bg-white flex absolute h-9 py-0.5 top-6 w-full justify-between items-center;
 }
 
+.label {
+  @apply text-warm-gray;
+}
+
 .selectContent {
   @apply flex flex-col;
 }
 
 .icon {
-  @apply cursor-pointer pointer-events-none absolute right-4;
+  @apply cursor-pointer pointer-events-none absolute right-4 mt-1.5;
 }
 
 .placeholder {
-  @apply text-warm-gray-light pl-2 text-base inline-block border-none cursor-pointer pointer-events-none bg-transparent;
+  @apply text-gray-400 pl-2 text-base inline-block border-none cursor-pointer pointer-events-none bg-transparent;
 }
 
 .errorContainer {
