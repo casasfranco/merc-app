@@ -1,8 +1,8 @@
 import React from 'react';
 import { Page } from '../../components';
-import styles from './NewContract.module.css';
+import styles from './Contract.module.css';
 
-const NewContract = () => {
+const Contract = () => {
   return (
     <Page title="Formulario para solicitar un nuevo contrato">
       <div className="flex w-full justify-around">
@@ -23,4 +23,4 @@ const NewContract = () => {
   );
 };
 
-export default NewContract;
+export default Contract;
