@@ -57,7 +57,6 @@ api.graphQl = {
         headers: getHeaders(options),
       }
     );
-
     return data;
   },
 };
@@ -75,15 +74,9 @@ api.secure = {
         headers: getHeaders(options, true),
       }
     );
-
     return data;
   },
 };
-
-api.fakeLoad = (data) =>
-  new Promise((resolve) => {
-    setTimeout(() => resolve({ data }), 1000);
-  });
 
 export { api };
 

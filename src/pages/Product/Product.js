@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Error,
@@ -8,16 +8,24 @@ import {
   Page,
   Select,
 } from '../../components';
-import { useForm } from '../../lib/hooks';
+import { useForm, useModel } from '../../lib/hooks';
 import { measureUnitsSelect } from '../../lib/constants';
 import {
-  createPacking,
-  createProduct,
-  createRelationProductPacking,
+  checkProductExistence,
+  handleProductAndPackingCreation,
 } from '../../lib/services/product';
 import { validateQuantityOfProductNumber } from '../../lib/validations';
+import InfoModal from './InfoModal';
 
 const Product = () => {
+  const [fetchDataFlag, setFetchDataFlag] = useState(true);
+  const [existingProduct, setExistingProduct] = useState(null);
+  const { getAllPackings, getAllProducts } = useModel.product.dispatch();
+  const {
+    products,
+    packings: { transformedPackings },
+  } = useModel.product();
+
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -26,6 +34,7 @@ const Product = () => {
     watch,
     setFormError,
     formError,
+    reset,
   } = useForm({
     mode: 'onChange',
     onError: async ({ err, setFormError, defaultOnError }) => {
@@ -37,34 +46,45 @@ const Product = () => {
     },
   });
 
+  useEffect(() => {
+    async function fetchData() {
+      await getAllPackings();
+      await getAllProducts();
+    }
+    if (fetchDataFlag) fetchData();
+    setFetchDataFlag(false);
+  }, []);
+
   const onSubmit = handleSubmit(async (data) => {
     try {
+      const { product } = data;
+
       setLoading(true);
-      const { product, packingId: withPackingId, packing, quantity } = data;
 
-      let packingId = null;
+      // Verifica si el producto ya existe
+      const productExists = checkProductExistence(product, products);
 
-      // Creo producto
-      const { createProduct: productResponse } = await createProduct(product);
+      // TODO: Realizar estos dos metodos, cada uno va a ser una difurcación de la logica.
+      //! Verifica si el packing existe
+      // const packingExists = checkPackingExistence(packing, packings);
+      //! Verifica si la relación ya existe
+      // const relProdPackingExists = checkRelProdPackingExistence(packing,product);
 
-      if (withPackingId != 'new') packingId = withPackingId;
-
-      if (packing && withPackingId === 'new') {
-        const { createPacking: packingResponse } = await createPacking(packing);
-        packingId = packingResponse.id;
+      if (!!productExists) {
+        setExistingProduct(productExists);
+      } else {
+        await handleProductAndPackingCreation(data);
+        await getAllProducts();
+        reset();
       }
-
-      await createRelationProductPacking({
-        productId: productResponse.id,
-        packingId,
-        quantity: parseFloat(quantity),
-      });
 
       setFormError(null);
       setLoading(false);
     } catch (error) {
       setFormError(`${error}`);
       setLoading(false);
+      setExistingProduct(null);
+      reset();
     }
   });
 
@@ -103,15 +123,11 @@ const Product = () => {
               <Select
                 label="Empaque"
                 error={errors?.packingId?.message}
-                // options={
-                //   enableLiabilityCols
-                //     ? lossMapping?.types
-                //     : lossMapping.types.filter((tol) => tol.id !== 'Liability')
-                // }
-                options={[
-                  { id: 'new', title: 'Crear nuevo empaque' },
-                  { id: 'asdas-2312-sad2-xad212', title: 'Bolsa 25 Kg' },
-                ]}
+                options={
+                  transformedPackings
+                    ? transformedPackings
+                    : [{ id: 'new', title: 'Crear nuevo empaque' }]
+                }
                 {...register('packingId', { required: 'Required' })}
               />
             </Form.Col>
@@ -160,6 +176,18 @@ const Product = () => {
             </>
           )}
         </Form>
+        {existingProduct && (
+          <InfoModal
+            // onAccept={() =>
+            //   handleCreateRelationProductPacking({
+            //     productId: existingProduct.id,
+            //     packingId,
+            //     quantity,
+            //   })
+            // }
+            onCancel={() => setExistingProduct(null)}
+          />
+        )}
       </Page.Section>
       <Page.Buttons>
         <Button

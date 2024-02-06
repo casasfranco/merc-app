@@ -67,4 +67,51 @@ const createRelationProductPacking = async (formData) => {
   return response.data;
 };
 
-export { createProduct, createPacking, createRelationProductPacking };
+// Función para verificar la existencia del producto
+const checkProductExistence = (product, products) => {
+  const { all: allProducts = [] } = products;
+  const exists = allProducts.find((prod) => prod.codeHS === product.codeHS);
+  return exists;
+};
+
+// Función refactorizada para manejar la creación de productos y empaques
+const handleProductAndPackingCreation = async (data) => {
+  const { product, packingId: withPackingId, packing, quantity } = data;
+  let packingId = null;
+
+  const { createProduct: productResponse } = await createProduct(product);
+
+  if (withPackingId != 'new') packingId = withPackingId;
+
+  if (packing && withPackingId === 'new') {
+    const { createPacking: packingResponse } = await createPacking(packing);
+    packingId = packingResponse.id;
+  }
+
+  await handleCreateRelationProductPacking({
+    productId: productResponse.id,
+    packingId,
+    quantity,
+  });
+};
+
+const handleCreateRelationProductPacking = async ({
+  productId,
+  packingId,
+  quantity,
+}) => {
+  await createRelationProductPacking({
+    productId,
+    packingId,
+    quantity: parseFloat(quantity),
+  });
+};
+
+export {
+  createProduct,
+  createPacking,
+  createRelationProductPacking,
+  handleProductAndPackingCreation,
+  checkProductExistence,
+  handleCreateRelationProductPacking,
+};

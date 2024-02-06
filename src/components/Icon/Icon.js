@@ -28,6 +28,7 @@ const Icon = ({
           'text-warm-gray': color === 'warm-gray',
           'text-success': color === 'success',
           'text-error': color === 'error',
+          'text-yellow-500': color === 'warning',
         },
         disabled && styles.disabled,
         className

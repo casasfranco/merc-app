@@ -1,11 +1,12 @@
 const productQueries = {
-  //   GET_USER: `
-  //   query GetUser($id: ID!) {
-  //     user(id: $id) {
-  //       id
-  //       fullName
-  //       email
-  //     }
-  //   }`,
+  GET_ALL_PRODUCTS: `
+    query Products {
+      products {
+        id
+        codeHS
+        description
+        isActive
+      }
+    }`,
 };
 export default productQueries;

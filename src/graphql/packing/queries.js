@@ -1,11 +1,12 @@
 const packingQueries = {
-  //   GET_USER: `
-  //   query GetUser($id: ID!) {
-  //     user(id: $id) {
-  //       id
-  //       fullName
-  //       email
-  //     }
-  //   }`,
+  GET_ALL_PACKINGS: `
+    query Packings {
+      packings {
+        id
+        description
+        unit
+        isActive
+      }
+    }`,
 };
 export default packingQueries;

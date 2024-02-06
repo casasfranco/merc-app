@@ -26,6 +26,7 @@ const config = {
     otherSize: 10,
   },
   urls,
+  debug: process.env.REACT_APP_DEBUG,
 };
 
 export default config;
