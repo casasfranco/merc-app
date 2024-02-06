@@ -18,6 +18,7 @@
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.3",
     "react-scripts": "5.0.1",
+    "react-textarea-autosize": "^8.5.3",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "tailwindcss-classnames": "^3.1.0",

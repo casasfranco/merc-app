@@ -165,7 +165,7 @@ const Product = () => {
                 <Form.Col>
                   <Select
                     label="Unidad"
-                    error={errors?.product?.packing?.unit.message}
+                    error={errors?.product?.packing?.unit?.message}
                     options={measureUnitsSelect}
                     {...register('packing.unit', {
                       required: 'Required',

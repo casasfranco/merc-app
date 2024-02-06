@@ -58,6 +58,17 @@ export const validateStreetNumber = (value = 0) => {
   if (value === '' || /^[0-9]+$/.test(value)) return true;
   return false;
 };
+export const validateHarvestNumber = (value = 0) => {
+  if (value === '' || /^[0-9]+$/.test(value)) {
+    const number = parseInt(value, 10);
+    if (number < 2000) return 'El año de cosecha debe ser mayor a 2000';
+    const currentYear = new Date().getFullYear();
+    if (number > currentYear)
+      return `El año de cosecha debe ser menor o igual a ${currentYear}`;
+    return true;
+  }
+  return false;
+};
 
 export const validateQuantityOfProductNumber = (value = 0) => {
   if (value === '' || /^[0-9]+(\.[0-9]+)?$/.test(value)) return true;
