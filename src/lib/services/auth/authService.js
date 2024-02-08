@@ -11,7 +11,6 @@ export const authService = {
       const { data, errors } = await api.graphQl.post(user.login, LOGIN, {
         loginInput: { ...credentials },
       });
-      console.log({ data, errors });
       if (errors) {
         return {
           error: `Error en el inicio de sesión: ${errors[0].message}.`,

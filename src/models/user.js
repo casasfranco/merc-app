@@ -8,21 +8,23 @@ const user = {
   effects: (dispatch) => ({
     login: async (credentials, root) => {
       const { user } = credentials;
-      const { error, data } = await authService.login(user);
-      console.log({ data });
+      const {
+        error,
+        data: { login },
+      } = await authService.login(user);
+
       if (error) {
         return { error };
       }
       const userState = {
         ...root.user,
-        // ...userData,
+        ...login,
       };
       dispatch.user.set(userState);
       sessionStorage.setItem(
-        'user',
+        'token',
         JSON.stringify({
-          ...root.user,
-          //  ...userData
+          token: login.token,
         })
       );
       return userState;
