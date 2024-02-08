@@ -5,9 +5,11 @@ import { useForm, useModel } from '../../lib/hooks';
 import { Button, Form, Input, Loading, Page } from '../../components';
 
 import { validateEmail, validateNotEmpty } from '../../lib/validations';
+import { useError } from '../../lib/hoc/ErrorContext';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { showError } = useError(); // Usa el hook useError
   const { login } = useModel.user.dispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,14 +30,15 @@ const LoginForm = () => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    try {
-      setLoading(true);
-      const userData = await login(data);
-      setLoading(false);
-      if (userData) navigate('/home');
-    } catch (error) {
-      setLoading(false);
-      setError(error);
+    setLoading(true);
+    const result = await login(data);
+    setLoading(false);
+
+    if (result.error) {
+      setError(result.error);
+      showError(result.error); // Utiliza showError para mostrar el error
+    } else {
+      navigate('/home'); // Navega en caso de éxito
     }
   });
 

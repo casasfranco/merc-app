@@ -7,7 +7,9 @@ import { getPersistor } from '@rematch/persist';
 
 import store from './lib/store';
 import { Loading } from './components';
+
 import './index.css';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
