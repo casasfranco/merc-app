@@ -1,12 +1,10 @@
-// import { useModel } from './';
-
-const handler = async (err, logout) => {
+const handler = async (err) => {
   const statusCode = err?.statusCode ?? err?.response?.status;
-  console.log(logout);
+
   if ([500, 503, 504, 408, 429].includes(statusCode)) {
     return 'We ran into an issue. Please try again in a few minutes.';
   } else if (statusCode === 401) {
-    // await logout('/resume');
+    sessionStorage.clear();
     return 'Something went wrong. Please try again later.';
   } else {
     return (
@@ -19,10 +17,7 @@ const handler = async (err, logout) => {
 };
 
 const useErrorHandling = () => {
-  // const { logout } = useAuth0();
-  // const fnol = useModel.fnol();
-
-  const handleError = (err) => handler(err, true);
+  const handleError = (err) => handler(err);
 
   return handleError;
 };

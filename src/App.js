@@ -2,17 +2,22 @@ import React from 'react';
 import { Route, Routes } from 'react-router';
 
 import { Home, Login, Company, Contract, Product } from './pages';
+import { ErrorProvider } from './lib/hoc/ErrorContext';
+import { GlobalErrorHandler } from './lib/GlobalErrorHandler';
 
 const App = () => {
   return (
-    <Routes>
-      <Route exact path="/login" Component={Login} />
-      <Route exact path="/new-contract" Component={Contract} />
-      <Route exact path="/new-company" Component={Company} />
-      <Route exact path="/product" Component={Product} />
-      <Route exact path="/home" Component={Home} />
-      <Route path="/" Component={Home} />
-    </Routes>
+    <ErrorProvider>
+      <GlobalErrorHandler /> {/* Asegúrate de que este componente esté aquí */}
+      <Routes>
+        <Route exact path="/login" Component={Login} />
+        <Route exact path="/new-contract" Component={Contract} />
+        <Route exact path="/new-company" Component={Company} />
+        <Route exact path="/product" Component={Product} />
+        <Route exact path="/home" Component={Home} />
+        <Route path="/" Component={Home} />
+      </Routes>
+    </ErrorProvider>
   );
 };
 

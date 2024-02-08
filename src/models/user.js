@@ -1,4 +1,4 @@
-import { useAuth } from '../lib/hooks/useAuth';
+import { authService } from '../lib/services/auth/authService';
 
 const user = {
   state: JSON.parse(sessionStorage.getItem('user')),
@@ -6,51 +6,26 @@ const user = {
     set: (state, user) => (user ? { ...state, ...user } : null),
   },
   effects: (dispatch) => ({
-    save: (update, root) => {
-      if (update) {
-        const { token, ...user } = update;
-
-        user.id = token ? JSON.parse(atob(token.split('.')[1])).sub : null;
-        user.hasSession = !!token || !!user.hasSession;
-        user.loggingIn = token ? false : !!user.loggingIn;
-        user.refreshing = token ? false : !!user.refreshing;
-
-        const userState = {
-          ...root.user,
-          ...user,
-          token,
-        };
-        dispatch.user.set(userState);
-
-        sessionStorage.setItem(
-          'user',
-          JSON.stringify({ ...root.user, ...user })
-        );
-        return userState;
-      } else {
-        dispatch.user.set(null);
-        sessionStorage.removeItem('user');
-        return null;
-      }
-    },
     login: async (credentials, root) => {
-      const { login } = useAuth();
-
       const { user } = credentials;
-      const { login: userData } = await login(user);
-
+      const { error, data } = await authService.login(user);
+      console.log({ data });
+      if (error) {
+        return { error };
+      }
       const userState = {
         ...root.user,
-        ...userData,
+        // ...userData,
       };
       dispatch.user.set(userState);
       sessionStorage.setItem(
         'user',
-        JSON.stringify({ ...root.user, ...userData })
+        JSON.stringify({
+          ...root.user,
+          //  ...userData
+        })
       );
       return userState;
-      // dispatch.user.save(null);
-      // dispatch({ type: 'global/reset' });
     },
     signOut: () => {
       dispatch.user.save(null);
