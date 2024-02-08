@@ -192,11 +192,9 @@ const Contract = () => {
             <Form.Col>
               <TextArea
                 label="Notas"
-                maxLength={50}
+                maxLength={100}
                 minRows={5}
-                {...register('contract.notes', {
-                  required: 'Required',
-                })}
+                {...register('contract.notes')}
                 error={errors?.contract?.notes?.message}
               />
             </Form.Col>
