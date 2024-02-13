@@ -13,6 +13,7 @@ export { default as Notification } from './Notification';
 export { default as Page } from './Page';
 export { default as ProductList } from './ProductList';
 export { default as Select } from './Select';
+export { default as SelectByGroup } from './SelectByGroup';
 export { default as Spinner } from './Spinner';
 export { default as TextArea } from './TextArea';
 export { default as Viewport } from './Viewport';

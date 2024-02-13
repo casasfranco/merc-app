@@ -23,6 +23,10 @@
   @apply text-sm text-error flex flex-row-reverse;
 }
 
+.required {
+  @apply ml-2 text-sm text-error;
+}
+
 .disabled {
   @apply bg-disabled-light border-disabled-light text-disabled cursor-not-allowed;
 }

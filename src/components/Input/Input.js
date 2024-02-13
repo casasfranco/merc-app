@@ -22,6 +22,7 @@ const Input = React.forwardRef(
       {label && (
         <label htmlFor={id ?? name} className={styles.label}>
           {label}
+          {!optional && <span className={styles.required}>*</span>}
         </label>
       )}
       <input

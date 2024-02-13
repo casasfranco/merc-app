@@ -18,6 +18,7 @@ const Select = React.forwardRef(
       value,
       placeholder,
       className,
+      optional = false,
       ...props
     },
     ref
@@ -54,7 +55,7 @@ const Select = React.forwardRef(
         <div className={styles.selectContent}>
           {label && (
             <label htmlFor={id ?? name} className={styles.label}>
-              {label}
+              {label} {!optional && <span className={styles.required}>*</span>}
             </label>
           )}
           <select
@@ -74,6 +75,7 @@ const Select = React.forwardRef(
               disabled && styles.disabled,
               success && styles.success
             )}
+            required={!optional}
             onChange={handleSelect}
             onBlur={handleSelect}
             aria-invalid={error ? 'true' : 'false'}

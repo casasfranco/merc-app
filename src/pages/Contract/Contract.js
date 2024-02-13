@@ -8,6 +8,7 @@ import {
   Input,
   Page,
   Select,
+  SelectByGroup,
   TextArea,
 } from '../../components';
 import { useForm } from '../../lib/hooks';
@@ -15,7 +16,10 @@ import {
   validateHarvestNumber,
   validateQuantityOfProductNumber,
 } from '../../lib/validations';
-// import styles from './Contract.module.css';
+import {
+  containerTypesGroupSelect,
+  incotermsSelect,
+} from '../../lib/constants';
 
 const Contract = () => {
   const {
@@ -104,13 +108,34 @@ const Contract = () => {
           </Form.Row>
           <Form.Row>
             <Form.Col>
+              <SelectByGroup
+                label="Tipo de contenedor"
+                error={errors?.contract?.container?.message}
+                options={containerTypesGroupSelect}
+                {...register('contract.container', {
+                  required: 'Required',
+                })}
+              />
+            </Form.Col>
+            <Form.Col>
+              <Input
+                label="Cantidad (tons)"
+                error={errors?.contract?.quantity?.message}
+                {...register('contract.quantity', {
+                  required: 'Required',
+                })}
+              />
+            </Form.Col>
+          </Form.Row>
+          <Form.Row>
+            <Form.Col>
               <Input
                 label="Cosecha"
                 type="number"
                 step={1}
                 min={2000}
-                error={errors?.company?.harvest?.message}
-                {...register('company.harvest', {
+                error={errors?.contract?.harvest?.message}
+                {...register('contract.harvest', {
                   required: 'Required',
                   validate: (value) =>
                     validateHarvestNumber(value) ||
@@ -134,8 +159,8 @@ const Contract = () => {
                 type="number"
                 step={1}
                 min={0}
-                error={errors?.contract?.quantity?.message}
-                {...register('contract.quantity', {
+                error={errors?.contract?.price?.message}
+                {...register('contract.price', {
                   required: 'Required',
                   validate: (value) =>
                     validateQuantityOfProductNumber(value) ||
@@ -155,20 +180,22 @@ const Contract = () => {
           </Form.Row>
           <Form.Row>
             <Form.Col>
-              <Input
+              <DateInput
                 label="ETD"
                 error={errors?.contract?.etd?.message}
                 {...register('contract.etd', {
                   required: 'Required',
+                  valueAsDate: true,
                 })}
               />
             </Form.Col>
             <Form.Col>
-              <Input
+              <DateInput
                 label="ETA"
                 error={errors?.contract?.eta?.message}
                 {...register('contract.eta', {
                   required: 'Required',
+                  valueAsDate: true,
                 })}
               />
             </Form.Col>
@@ -179,6 +206,15 @@ const Contract = () => {
                 label="Dias Libres POD"
                 error={errors?.contract?.freeDaysPOD?.message}
                 {...register('contract.freeDaysPOD', {
+                  required: 'Required',
+                })}
+                optional
+              />
+              <Select
+                label="INCOTERM"
+                error={errors?.contract?.incoterm?.message}
+                options={incotermsSelect}
+                {...register('contract.incoterm', {
                   required: 'Required',
                 })}
               />
