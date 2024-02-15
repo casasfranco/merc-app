@@ -1,6 +1,7 @@
 const urls = {
   user: {
     login: '/login',
+    revalidate: '/revalidate',
   },
   product: {
     create: '/product',

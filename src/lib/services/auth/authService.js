@@ -1,10 +1,10 @@
 import config from '../../../config';
-import { mutations } from '../../../graphql/user';
+import { userMutations } from '../../../graphql/user';
 import { api } from '../../hooks/useApi/useApi';
 
 export const authService = {
   login: async (credentials) => {
-    const { LOGIN } = mutations;
+    const { LOGIN } = userMutations;
     const { user } = config.urls;
 
     try {

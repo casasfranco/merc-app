@@ -8,10 +8,7 @@ import config from '../config';
 
 const store = init({
   models,
-  plugins: [
-    persistPlugin({ key: 'root', storage, blacklist: ['user'] }),
-    updatedPlugin(),
-  ],
+  plugins: [persistPlugin({ key: 'root', storage }), updatedPlugin()],
   redux: {
     devtoolOptions: {
       disabled: config.debug !== 'true',

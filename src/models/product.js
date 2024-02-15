@@ -81,25 +81,31 @@ const product = {
         productUrl.getAll,
         GET_ALL_PRODUCTS
       );
-
-      dispatch.product.set({
-        products: { all: data.products },
-      });
+      if (data) {
+        dispatch.product.set({
+          products: { all: data.products },
+        });
+      }
     },
     getAllPackings: async () => {
       const { data } = await api.secure.post(
         packingUrl.getAll,
         GET_ALL_PACKINGS
       );
-      const transformedPackings = data.packings.map((packing) => ({
-        id: packing.id,
-        title: `${packing.description} - ${packing.unit}`,
-      }));
-      transformedPackings.unshift({ id: 'new', title: 'Crear nuevo empaque' });
+      if (data) {
+        const transformedPackings = data.packings.map((packing) => ({
+          id: packing.id,
+          title: `${packing.description} - ${packing.unit}`,
+        }));
+        transformedPackings.unshift({
+          id: 'new',
+          title: 'Crear nuevo empaque',
+        });
 
-      dispatch.product.set({
-        packings: { all: data.packings, transformedPackings },
-      });
+        dispatch.product.set({
+          packings: { all: data.packings, transformedPackings },
+        });
+      }
     },
   }),
 };
