@@ -1,49 +1,92 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Checkbox,
   DateInput,
   Error,
   Form,
+  Icon,
   Input,
   Page,
   Select,
-  SelectByGroup,
   TextArea,
 } from '../../components';
 import { useForm } from '../../lib/hooks';
-import {
-  validateHarvestNumber,
-  validateQuantityOfProductNumber,
-} from '../../lib/validations';
-import {
-  containerTypesGroupSelect,
-  incotermsSelect,
-} from '../../lib/constants';
+import { validateQuantityOfProductNumber } from '../../lib/validations';
+import { incotermsSelect } from '../../lib/constants';
+import Container from './Container';
 
 const Contract = () => {
+  const form = useForm({
+    defaultValues: {
+      contract: {
+        date: null,
+        companySeller: '',
+        companyBuyer: '',
+        quantity: '',
+        price: '',
+        payment: '',
+        etd: null,
+        eta: null,
+        freeDaysPOD: '',
+        incoterm: '',
+        mercTaxId: false,
+        notes: '',
+        containers: [
+          {
+            containerType: undefined,
+            fcl: false,
+            harvest: undefined,
+            product: undefined,
+          },
+        ],
+      },
+    },
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    // watch,
+    watch,
+    control,
     setFormError,
     formError,
-  } = useForm({
-    mode: 'onChange',
-    onError: async ({ err, setFormError, defaultOnError }) => {
-      if (err.statusCode) {
-        setFormError(err);
-      } else {
-        await defaultOnError();
-      }
+  } = form;
+
+  const [allowDelete, setAllowDelete] = useState(false);
+
+  const [containers, setConteiners] = useState([
+    {
+      containerType: undefined,
+      fcl: false,
+      harvest: undefined,
+      product: undefined,
     },
-  });
+  ]);
 
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
     setFormError(null);
   });
+
+  console.log(watch());
+  const addContainer = () => {
+    const currentContainers = containers || [];
+    const newContainer = {};
+
+    const newContainers = [...currentContainers, newContainer];
+    setConteiners(newContainers);
+    if (newContainers.length > 1) {
+      setAllowDelete(true);
+    }
+  };
+
+  const removeContainer = (index) => {
+    const newConteiners = containers.filter((_, i) => i !== index);
+    setConteiners(newConteiners);
+    if (newConteiners?.length === 1) setAllowDelete(false);
+  };
 
   return (
     <Page title="Formulario para solicitar un nuevo contrato">
@@ -96,30 +139,8 @@ const Contract = () => {
               />
             </Form.Col>
             <Form.Col>
-              <Select
-                label="Producto"
-                error={errors?.contract?.product?.message}
-                options={[{ id: 'product', title: 'Seleccione una opcion' }]}
-                {...register('contract.product', {
-                  required: 'Required',
-                })}
-              />
-            </Form.Col>
-          </Form.Row>
-          <Form.Row>
-            <Form.Col>
-              <SelectByGroup
-                label="Tipo de contenedor"
-                error={errors?.contract?.container?.message}
-                options={containerTypesGroupSelect}
-                {...register('contract.container', {
-                  required: 'Required',
-                })}
-              />
-            </Form.Col>
-            <Form.Col>
               <Input
-                label="Cantidad (tons)"
+                label="Cantidad Total (tons)"
                 error={errors?.contract?.quantity?.message}
                 {...register('contract.quantity', {
                   required: 'Required',
@@ -128,29 +149,12 @@ const Contract = () => {
             </Form.Col>
           </Form.Row>
           <Form.Row>
-            <Form.Col>
-              <Input
-                label="Cosecha"
-                type="number"
-                step={1}
-                min={2000}
-                error={errors?.contract?.harvest?.message}
-                {...register('contract.harvest', {
-                  required: 'Required',
-                  validate: (value) =>
-                    validateHarvestNumber(value) ||
-                    'El año de cosecha debe ser entero',
-                })}
-              />
-            </Form.Col>
-            <Form.Col className={'justify-center'}>
-              <Checkbox
-                label="FCL"
-                // checked={}
-                {...register('contract.fcl')}
-                error={errors?.contract?.fcl?.message}
-              />
-            </Form.Col>
+            <Form.Col></Form.Col>
+            <Form.Col></Form.Col>
+          </Form.Row>
+          <Form.Row>
+            <Form.Col></Form.Col>
+            <Form.Col></Form.Col>
           </Form.Row>
           <Form.Row>
             <Form.Col>
@@ -194,21 +198,19 @@ const Contract = () => {
                 label="ETA"
                 error={errors?.contract?.eta?.message}
                 {...register('contract.eta', {
-                  required: 'Required',
                   valueAsDate: true,
                 })}
+                optional
               />
             </Form.Col>
           </Form.Row>
-          <Form.Row>
+          <Form.Row className="mb-2 md:mb-4 ">
             <Form.Col>
               <Input
                 label="Dias Libres POD"
                 error={errors?.contract?.freeDaysPOD?.message}
-                {...register('contract.freeDaysPOD', {
-                  required: 'Required',
-                })}
                 optional
+                {...register('contract.freeDaysPOD')}
               />
               <Select
                 label="INCOTERM"
@@ -220,7 +222,7 @@ const Contract = () => {
               />
               <Checkbox
                 label="Incluir TAX ID Merc"
-                // checked={}
+                containerClassName="my-4"
                 {...register('contract.mercTaxId')}
                 error={errors?.contract?.mercTaxId?.message}
               />
@@ -235,6 +237,25 @@ const Contract = () => {
               />
             </Form.Col>
           </Form.Row>
+
+          {containers?.length > 0 &&
+            containers.map((container, index) => (
+              <Form.Row key={index}>
+                <Container
+                  allowDelete={allowDelete}
+                  container={container}
+                  index={index}
+                  removeContainer={removeContainer}
+                  control={control}
+                  errors={errors}
+                />
+              </Form.Row>
+            ))}
+
+          <Button type="button" onClick={addContainer} className="mt-4">
+            <Icon size={20} color="success" name="plusCircle" />
+            <span className="pl-3">Agregar Contenedor</span>
+          </Button>
         </Form>
       </Page.Section>
       <Page.Buttons>

@@ -1,3 +1,7 @@
 .card {
   @apply my-6;
 }
+
+/* .deleteIcon {
+  float: left;
+} */

@@ -4,6 +4,15 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      keyframes: {
+        fadeOut: {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
+        },
+      },
+      animation: {
+        fadeOut: 'fadeOut 0.5s forwards',
+      },
       flex: {
         2: '2 2 0%',
         3: '3 3 0%',

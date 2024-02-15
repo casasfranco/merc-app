@@ -23,7 +23,9 @@ const Form = (props) => {
   );
 };
 
-const Row = ({ children }) => <div className={styles.row}>{children}</div>;
+const Row = ({ children, className }) => (
+  <div className={classnames(styles.row, className)}>{children}</div>
+);
 
 const Col = ({ children, className }) => (
   <div className={classnames(styles.col, className)}>{children}</div>

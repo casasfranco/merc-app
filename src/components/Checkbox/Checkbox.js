@@ -9,6 +9,7 @@ const Checkbox = React.forwardRef(
       name,
       label,
       checked,
+      optional = false,
       disabled = false,
       onChange,
       value,
@@ -27,7 +28,7 @@ const Checkbox = React.forwardRef(
             <span
               className={classNames(styles.label, disabled && styles.disabled)}
             >
-              {label}
+              {label} {!optional && <span className={styles.required}>*</span>}
             </span>
           )}
           <input

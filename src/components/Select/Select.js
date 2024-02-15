@@ -90,13 +90,13 @@ const Select = React.forwardRef(
                 </option>
               ))}
           </select>
-          <div className={styles.errorContainer}>
-            {error && (
+          {error && (
+            <div className={styles.errorContainer}>
               <span id={`${id ?? name}-error`} className={styles.errorText}>
                 {error}
               </span>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     );
