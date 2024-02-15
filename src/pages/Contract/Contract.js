@@ -8,7 +8,7 @@ import {
   Icon,
   Input,
   Page,
-  Select,
+  CustomSelect,
   TextArea,
 } from '../../components';
 import { useForm } from '../../lib/hooks';
@@ -113,12 +113,10 @@ const Contract = () => {
               /> */}
             </Form.Col>
             <Form.Col>
-              <Select
+              <CustomSelect
                 label="Proveedor"
                 error={errors?.contract?.companySeller?.message}
-                options={[
-                  { id: 'proveedorSeleer', title: 'Seleccione una opcion' },
-                ]}
+                options={[]}
                 {...register('contract.companySeller', {
                   required: 'Required',
                 })}
@@ -127,12 +125,10 @@ const Contract = () => {
           </Form.Row>
           <Form.Row>
             <Form.Col>
-              <Select
+              <CustomSelect
                 label="Emitir contrato para"
                 error={errors?.contract?.companyBuyer?.message}
-                options={[
-                  { id: 'companyBuyer', title: 'Seleccione una opcion' },
-                ]}
+                options={[]}
                 {...register('contract.companyBuyer', {
                   required: 'Required',
                 })}
@@ -212,7 +208,7 @@ const Contract = () => {
                 optional
                 {...register('contract.freeDaysPOD')}
               />
-              <Select
+              <CustomSelect
                 label="INCOTERM"
                 error={errors?.contract?.incoterm?.message}
                 options={incotermsSelect}

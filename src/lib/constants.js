@@ -14,51 +14,51 @@ const INCOTERMS = {
 
 const incotermsSelect = [
   {
-    id: INCOTERMS.EXW,
-    title: INCOTERMS.EXW,
+    value: INCOTERMS.EXW,
+    label: INCOTERMS.EXW,
   },
   {
-    id: INCOTERMS.CFR,
-    title: INCOTERMS.CFR,
+    value: INCOTERMS.CFR,
+    label: INCOTERMS.CFR,
   },
   {
-    id: INCOTERMS.FOB,
-    title: INCOTERMS.FOB,
+    value: INCOTERMS.FOB,
+    label: INCOTERMS.FOB,
   },
   {
-    id: INCOTERMS.CIF,
-    title: INCOTERMS.CIF,
+    value: INCOTERMS.CIF,
+    label: INCOTERMS.CIF,
   },
 ];
 
 const measureUnitsSelect = [
   {
-    id: measureUnits.GR,
-    title: measureUnits.GR,
+    value: measureUnits.GR,
+    label: measureUnits.GR,
   },
   {
-    id: measureUnits.KG,
-    title: measureUnits.KG,
+    value: measureUnits.KG,
+    label: measureUnits.KG,
   },
   {
-    id: measureUnits.ML,
-    title: measureUnits.ML,
+    value: measureUnits.ML,
+    label: measureUnits.ML,
   },
   {
-    id: measureUnits.L,
-    title: measureUnits.L,
+    value: measureUnits.L,
+    label: measureUnits.L,
   },
 ];
 
 const containerTypes = {
-  A_SMALL: { value: 'A_SMALL', title: '20 pies' },
-  A_BIG: { value: 'A_BIG', title: '40 pies' },
-  A_BIG_HIGH_CUBE: { value: 'A_BIG_HIGH_CUBE', title: '40 pies High Cube' },
-  B_SMALL: { value: 'B_SMALL', title: '20 pies' },
-  B_BIG: { value: 'B_BIG', title: '40 pies' },
-  B_BIG_HIGH_CUBE: { value: 'B_BIG_HIGH_CUBE', title: '40 pies High Cube' },
-  C_BOXCAR: { value: 'C_BOXCAR', title: 'Boxcar' },
-  D_TOLVA: { value: 'D_TOLVA', title: 'Tolva' },
+  A_SMALL: { value: 'A_SMALL', label: '20 pies' },
+  A_BIG: { value: 'A_BIG', label: '40 pies' },
+  A_BIG_HIGH_CUBE: { value: 'A_BIG_HIGH_CUBE', label: '40 pies High Cube' },
+  B_SMALL: { value: 'B_SMALL', label: '20 pies' },
+  B_BIG: { value: 'B_BIG', label: '40 pies' },
+  B_BIG_HIGH_CUBE: { value: 'B_BIG_HIGH_CUBE', label: '40 pies High Cube' },
+  C_BOXCAR: { value: 'C_BOXCAR', label: 'Boxcar' },
+  D_TOLVA: { value: 'D_TOLVA', label: 'Tolva' },
 };
 
 const containerTypesGroupSelect = [
@@ -66,15 +66,15 @@ const containerTypesGroupSelect = [
     label: 'A - Container Dry Box',
     options: [
       {
-        label: containerTypes.A_SMALL.title,
+        label: containerTypes.A_SMALL.label,
         value: containerTypes.A_SMALL.value,
       },
       {
-        label: containerTypes.A_BIG.title,
+        label: containerTypes.A_BIG.label,
         value: containerTypes.A_BIG.value,
       },
       {
-        label: containerTypes.A_BIG_HIGH_CUBE.title,
+        label: containerTypes.A_BIG_HIGH_CUBE.label,
         value: containerTypes.A_BIG_HIGH_CUBE.value,
       },
     ],
@@ -83,15 +83,15 @@ const containerTypesGroupSelect = [
     label: 'B - Container Reefer (Refrigerado)',
     options: [
       {
-        label: containerTypes.B_SMALL.title,
+        label: containerTypes.B_SMALL.label,
         value: containerTypes.B_SMALL.value,
       },
       {
-        label: containerTypes.B_BIG.title,
+        label: containerTypes.B_BIG.label,
         value: containerTypes.B_BIG.value,
       },
       {
-        label: containerTypes.B_BIG_HIGH_CUBE.title,
+        label: containerTypes.B_BIG_HIGH_CUBE.label,
         value: containerTypes.B_BIG_HIGH_CUBE.value,
       },
     ],
@@ -101,7 +101,7 @@ const containerTypesGroupSelect = [
     label: 'C - Boxcar (tren)',
     options: [
       {
-        label: containerTypes.C_BOXCAR.title,
+        label: containerTypes.C_BOXCAR.label,
         value: containerTypes.C_BOXCAR.value,
       },
     ],
@@ -110,7 +110,7 @@ const containerTypesGroupSelect = [
     label: 'D - Tolva (tren)',
     options: [
       {
-        label: containerTypes.D_TOLVA.title,
+        label: containerTypes.D_TOLVA.label,
         value: containerTypes.D_TOLVA.value,
       },
     ],

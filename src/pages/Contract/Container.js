@@ -5,7 +5,7 @@ import {
   Icon,
   Input,
   Page,
-  Select,
+  CustomSelect,
   SelectByGroup,
 } from '../../components';
 import { Controller } from 'react-hook-form';
@@ -54,13 +54,10 @@ const Container = ({
             control={control}
             rules={{ required: 'Este campo es requerido' }}
             render={({ field }) => (
-              <Select
+              <CustomSelect
                 label="Producto"
                 {...field}
-                options={[
-                  { id: 'product1', title: 'Producto 1' },
-                  { id: 'product2', title: 'Producto 2' },
-                ]}
+                options={[]}
                 error={errors?.contract?.containers?.[index]?.product?.message}
               />
             )}

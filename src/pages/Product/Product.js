@@ -6,7 +6,7 @@ import {
   Input,
   Loading,
   Page,
-  Select,
+  CustomSelect,
 } from '../../components';
 import { useForm, useModel } from '../../lib/hooks';
 import { measureUnitsSelect } from '../../lib/constants';
@@ -120,7 +120,7 @@ const Product = () => {
           </Form.Row>
           <Form.Row>
             <Form.Col>
-              <Select
+              <CustomSelect
                 label="Empaque"
                 error={errors?.packingId?.message}
                 options={
@@ -163,7 +163,7 @@ const Product = () => {
                   />
                 </Form.Col>
                 <Form.Col>
-                  <Select
+                  <CustomSelect
                     label="Unidad"
                     error={errors?.product?.packing?.unit?.message}
                     options={measureUnitsSelect}
