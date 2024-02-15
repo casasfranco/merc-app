@@ -104,13 +104,6 @@ const Contract = () => {
                   valueAsDate: true,
                 })}
               />
-              {/* <Input
-                label="Nombre"
-                error={errors?.company?.name?.message}
-                {...register('company.name', {
-                  required: 'Required',
-                })}
-              /> */}
             </Form.Col>
             <Form.Col>
               <CustomSelect
@@ -143,14 +136,6 @@ const Contract = () => {
                 })}
               />
             </Form.Col>
-          </Form.Row>
-          <Form.Row>
-            <Form.Col></Form.Col>
-            <Form.Col></Form.Col>
-          </Form.Row>
-          <Form.Row>
-            <Form.Col></Form.Col>
-            <Form.Col></Form.Col>
           </Form.Row>
           <Form.Row>
             <Form.Col>
