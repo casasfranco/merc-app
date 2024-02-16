@@ -1,6 +1,6 @@
 import config from '../../../config';
-import { productMutations } from '../../../graphql/product';
-import { packingMutations } from '../../../graphql/packing';
+import { productMutations, productQueries } from '../../../graphql/product';
+import { packingMutations, packingQueries } from '../../../graphql/packing';
 import { productPackingRelationMutations } from '../../../graphql/productPackingRelation';
 import { api } from '../../hooks/useApi/useApi';
 
@@ -13,22 +13,61 @@ const {
 } = config;
 
 const { CREATE_PRODUCT } = productMutations;
+const { GET_ALL_PRODUCTS } = productQueries;
+
 const { CREATE_PACKING } = packingMutations;
+const { GET_ALL_PACKINGS } = packingQueries;
+
 const { CREATE_PRODUCT_PACKING_REL } = productPackingRelationMutations;
 
-const createProduct = async (product) => {
+const getAllPackings = async () => {
   try {
-    const createProductInput = {
-      ...product,
-    };
-    const response = await api.secure.post(productUrl.create, CREATE_PRODUCT, {
-      createProductInput,
-    });
-
-    return response.data;
+    const { data, errors } = await api.secure.post(
+      packingUrl.getAll,
+      GET_ALL_PACKINGS
+    );
+    if (errors) {
+      return {
+        error: `Error al obtener los packings: ${errors[0].message}.`,
+      };
+    }
+    return { data };
   } catch (error) {
-    throw new Error(error);
+    return {
+      error:
+        error.message || 'Error desconocido al intentar obtener los packings',
+    };
   }
+};
+const getAllProducts = async () => {
+  try {
+    const { data, errors } = await api.secure.post(
+      productUrl.getAll,
+      GET_ALL_PRODUCTS
+    );
+    if (errors) {
+      return {
+        error: `Error al obtener los packings: ${errors[0].message}.`,
+      };
+    }
+    return { data };
+  } catch (error) {
+    return {
+      error:
+        error.message || 'Error desconocido al intentar obtener los packings',
+    };
+  }
+};
+
+const createProduct = async (product) => {
+  const createProductInput = {
+    ...product,
+  };
+  const response = await api.secure.post(productUrl.create, CREATE_PRODUCT, {
+    createProductInput,
+  });
+
+  return response.data;
 };
 
 const createPacking = async (packing) => {
@@ -108,6 +147,8 @@ const handleCreateRelationProductPacking = async ({
 };
 
 export {
+  getAllPackings,
+  getAllProducts,
   createProduct,
   createPacking,
   createRelationProductPacking,

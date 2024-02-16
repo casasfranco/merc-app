@@ -58,6 +58,7 @@ export const validateStreetNumber = (value = 0) => {
   if (value === '' || /^[0-9]+$/.test(value)) return true;
   return false;
 };
+
 export const validateHarvestNumber = (value = 0) => {
   if (value === '' || /^[0-9]+$/.test(value)) {
     const number = parseInt(value, 10);

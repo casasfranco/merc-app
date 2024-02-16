@@ -51,7 +51,8 @@ const CustomSelect = forwardRef(
           isRtl={disabled}
           options={options}
           defaultValue={
-            options.find((option) => option.value === value) || undefined
+            (!!options && options.find((option) => option.value === value)) ||
+            undefined
           }
           onChange={handleChange}
           classNamePrefix="select"

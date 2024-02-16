@@ -3,6 +3,9 @@ const urls = {
     login: '/login',
     revalidate: '/revalidate',
   },
+  company: {
+    getAll: '/companies',
+  },
   product: {
     create: '/product',
     getAll: '/products',

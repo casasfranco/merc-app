@@ -11,6 +11,7 @@ const useModel = {
   product: createModelHook('product'),
   session: createModelHook('session'),
   user: createModelHook('user'),
+  company: createModelHook('company'),
   updated: createModelHook('updated'),
 };
 

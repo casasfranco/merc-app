@@ -1,14 +1,5 @@
-import config from '../config';
-import { packingQueries } from '../graphql/packing';
-import { productQueries } from '../graphql/product';
 import { api } from '../lib/hooks/useApi/useApi';
-
-const {
-  urls: { packing: packingUrl, product: productUrl },
-} = config;
-
-const { GET_ALL_PACKINGS } = packingQueries;
-const { GET_ALL_PRODUCTS } = productQueries;
+import { getAllPackings, getAllProducts } from '../lib/services/product';
 
 const defaultState = {
   products: {},
@@ -77,35 +68,44 @@ const product = {
       }
     },
     getAllProducts: async () => {
-      const { data } = await api.secure.post(
-        productUrl.getAll,
-        GET_ALL_PRODUCTS
-      );
-      if (data) {
-        dispatch.product.set({
-          products: { all: data.products },
-        });
+      const { error, data } = await getAllProducts();
+
+      if (error) {
+        return { error };
       }
+
+      const { products } = data;
+
+      const transformedProducts = products.map((product) => ({
+        value: product.id,
+        label: `${product.description}`,
+      }));
+
+      dispatch.product.set({
+        products: { all: products, transformedProducts },
+      });
     },
     getAllPackings: async () => {
-      const { data } = await api.secure.post(
-        packingUrl.getAll,
-        GET_ALL_PACKINGS
-      );
-      if (data) {
-        const transformedPackings = data.packings.map((packing) => ({
-          id: packing.id,
-          title: `${packing.description} - ${packing.unit}`,
-        }));
-        transformedPackings.unshift({
-          id: 'new',
-          title: 'Crear nuevo empaque',
-        });
+      const { error, data } = await getAllPackings();
 
-        dispatch.product.set({
-          packings: { all: data.packings, transformedPackings },
-        });
+      if (error) {
+        return { error };
       }
+
+      const { packings } = data;
+
+      const transformedPackings = packings.map((packing) => ({
+        value: packing.id,
+        label: `${packing.description} - ${packing.unit}`,
+      }));
+      // transformedPackings.unshift({
+      //   id: 'new',
+      //   title: 'Crear nuevo empaque',
+      // });
+
+      dispatch.product.set({
+        packings: { all: packings, transformedPackings },
+      });
     },
   }),
 };

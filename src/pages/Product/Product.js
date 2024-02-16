@@ -16,8 +16,11 @@ import {
 } from '../../lib/services/product';
 import { validateQuantityOfProductNumber } from '../../lib/validations';
 import InfoModal from './InfoModal';
+import { useError } from '../../lib/hoc/ErrorContext';
 
 const Product = () => {
+  const { showError } = useError(); // Usa el hook useError
+
   const [fetchDataFlag, setFetchDataFlag] = useState(true);
   const [existingProduct, setExistingProduct] = useState(null);
   const { getAllPackings, getAllProducts } = useModel.product.dispatch();
@@ -48,8 +51,10 @@ const Product = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await getAllPackings();
-      await getAllProducts();
+      const packingError = await getAllPackings();
+      const productError = await getAllProducts();
+
+      showError(productError?.error ?? packingError?.error);
     }
     if (fetchDataFlag) fetchData();
     setFetchDataFlag(false);

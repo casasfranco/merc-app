@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Checkbox,
@@ -11,12 +11,27 @@ import {
   CustomSelect,
   TextArea,
 } from '../../components';
-import { useForm } from '../../lib/hooks';
-import { validateQuantityOfProductNumber } from '../../lib/validations';
-import { incotermsSelect } from '../../lib/constants';
+import { useForm, useModel } from '../../lib/hooks';
+import {
+  validateQuantityOfProductNumber,
+  validateStreetNumber,
+} from '../../lib/validations';
+import { INCOTERMS, incotermsSelect } from '../../lib/constants';
 import Container from './Container';
+import { useError } from '../../lib/hoc/ErrorContext';
 
 const Contract = () => {
+  const { showError } = useError();
+  const { getAllPackings, getAllProducts } = useModel.product.dispatch();
+  const { getAllCompanies } = useModel.company.dispatch();
+  const {
+    products: { transformedProducts },
+    packings: { transformedPackings },
+  } = useModel.product();
+  const {
+    companies: { transformedCompanies },
+  } = useModel.company();
+
   const form = useForm({
     defaultValues: {
       contract: {
@@ -43,7 +58,6 @@ const Contract = () => {
       },
     },
   });
-
   const {
     register,
     handleSubmit,
@@ -54,8 +68,8 @@ const Contract = () => {
     formError,
   } = form;
 
+  const [fetchDataFlag, setFetchDataFlag] = useState(true);
   const [allowDelete, setAllowDelete] = useState(false);
-
   const [containers, setConteiners] = useState([
     {
       containerType: undefined,
@@ -64,6 +78,27 @@ const Contract = () => {
       product: undefined,
     },
   ]);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!transformedCompanies) {
+        const companyError = await getAllCompanies();
+        showError(companyError?.error);
+      }
+
+      if (!transformedPackings) {
+        const packingError = await getAllPackings();
+        showError(packingError?.error);
+      }
+
+      if (!transformedProducts) {
+        const productError = await getAllProducts();
+        showError(productError?.error);
+      }
+    }
+    if (fetchDataFlag) fetchData();
+    setFetchDataFlag(false);
+  }, []);
 
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
@@ -88,6 +123,11 @@ const Contract = () => {
     if (newConteiners?.length === 1) setAllowDelete(false);
   };
 
+  const incotermSelected = watch('contract.incoterm');
+
+  const isRequiredFreeDaysPOD =
+    incotermSelected === INCOTERMS.CFR || incotermSelected === INCOTERMS.CIF;
+
   return (
     <Page title="Formulario para solicitar un nuevo contrato">
       <Page.Section>
@@ -109,7 +149,7 @@ const Contract = () => {
               <CustomSelect
                 label="Proveedor"
                 error={errors?.contract?.companySeller?.message}
-                options={[]}
+                options={transformedCompanies}
                 {...register('contract.companySeller', {
                   required: 'Required',
                 })}
@@ -121,7 +161,7 @@ const Contract = () => {
               <CustomSelect
                 label="Emitir contrato para"
                 error={errors?.contract?.companyBuyer?.message}
-                options={[]}
+                options={transformedCompanies}
                 {...register('contract.companyBuyer', {
                   required: 'Required',
                 })}
@@ -190,8 +230,13 @@ const Contract = () => {
               <Input
                 label="Dias Libres POD"
                 error={errors?.contract?.freeDaysPOD?.message}
-                optional
-                {...register('contract.freeDaysPOD')}
+                optional={!isRequiredFreeDaysPOD || false}
+                {...register('contract.freeDaysPOD', {
+                  required: isRequiredFreeDaysPOD ? 'Required' : null,
+                  validate: (value) =>
+                    validateStreetNumber(value) ||
+                    'La cantidad de días deben ser mayor a 0',
+                })}
               />
               <CustomSelect
                 label="INCOTERM"
@@ -223,6 +268,7 @@ const Contract = () => {
             containers.map((container, index) => (
               <Form.Row key={index}>
                 <Container
+                  productList={transformedProducts}
                   allowDelete={allowDelete}
                   container={container}
                   index={index}

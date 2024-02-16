@@ -13,6 +13,7 @@ import { containerTypesGroupSelect } from '../../lib/constants';
 import { validateHarvestNumber } from '../../lib/validations';
 
 const Container = ({
+  productList,
   allowDelete,
   removeContainer,
   index,
@@ -57,7 +58,7 @@ const Container = ({
               <CustomSelect
                 label="Producto"
                 {...field}
-                options={[]}
+                options={productList}
                 error={errors?.contract?.containers?.[index]?.product?.message}
               />
             )}

@@ -129,6 +129,7 @@ const containerTypesGroupSelect = [
 export {
   measureUnits,
   measureUnitsSelect,
+  INCOTERMS,
   incotermsSelect,
   containerTypes,
   containerTypesGroupSelect,
