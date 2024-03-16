@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Controller } from 'react-hook-form';
+import { v4 as uuidv4 } from 'uuid';
 import {
   Checkbox,
   Form,
@@ -8,7 +10,6 @@ import {
   CustomSelect,
   SelectByGroup,
 } from '../../components';
-import { Controller } from 'react-hook-form';
 import { containerTypesGroupSelect } from '../../lib/constants';
 import { validateHarvestNumber } from '../../lib/validations';
 
@@ -30,7 +31,7 @@ const Container = ({
       }, 500);
     }
   };
-
+  const id = uuidv4();
   return (
     <Page.Section
       cardStyle
@@ -50,6 +51,12 @@ const Container = ({
       </div>
       <Form.Row>
         <Form.Col>
+          <Controller
+            name={`contract.containers[${index}].id`}
+            control={control}
+            defaultValue={id}
+            render={({ field }) => <input type="hidden" {...field} />}
+          />
           <Controller
             name={`contract.containers[${index}].product`}
             control={control}

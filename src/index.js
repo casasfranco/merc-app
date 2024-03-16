@@ -17,7 +17,7 @@ const root = document.getElementById('root');
 const reactRoot = createRoot(root);
 
 reactRoot.render(
-  <React.StrictMode>
+  <React.Fragment>
     <ReduxProvider store={store}>
       <Router>
         <PersistGate loading={<Loading />} persistor={getPersistor()}>
@@ -25,7 +25,7 @@ reactRoot.render(
         </PersistGate>
       </Router>
     </ReduxProvider>
-  </React.StrictMode>
+  </React.Fragment>
 );
 
 // If you want to start measuring performance in your app, pass a function

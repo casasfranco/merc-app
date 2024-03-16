@@ -35,7 +35,6 @@ const useForm = ({ onError, ...hookFormOptions } = {}) => {
         } else {
           await defaultOnError();
         }
-        // scrollToTop();
       }
     });
 

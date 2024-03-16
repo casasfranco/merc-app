@@ -8,14 +8,11 @@ const user = {
   effects: (dispatch) => ({
     login: async (credentials, root) => {
       const { user } = credentials;
-      const {
-        error,
-        data: { login },
-      } = await authService.login(user);
-
+      const { error, data } = await authService.login(user);
       if (error) {
         return { error };
       }
+      const { login } = data;
       const userState = {
         ...root.user,
         ...login,
