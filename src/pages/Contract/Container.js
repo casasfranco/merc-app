@@ -116,9 +116,9 @@ const Container = ({
           <Controller
             name={`contract.containers[${index}].fcl`}
             control={control}
-            rules={{ required: 'Este campo es requerido' }}
             render={({ field }) => (
               <Checkbox
+                optional
                 label="FCL"
                 {...field}
                 error={errors?.contract?.containers?.[index].fcl?.message}

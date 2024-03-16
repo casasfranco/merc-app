@@ -60,7 +60,7 @@ const CustomSelect = forwardRef(
           placeholder={placeholder}
           {...props}
         />
-        {error && <span className="error">{error}</span>}
+        {error && <span className={styles.errorText}>{error}</span>}
       </div>
     );
   }

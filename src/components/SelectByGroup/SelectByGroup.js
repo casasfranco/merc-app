@@ -62,9 +62,8 @@ const SelectByGroup = forwardRef(
     return (
       <div className={className}>
         {label && (
-          <label htmlFor={id ?? name}>
-            {label}
-            {!optional && <span className={styles.required}>*</span>}
+          <label htmlFor={id ?? name} className={styles.label}>
+            {label} {!optional && <span className={styles.required}>*</span>}
           </label>
         )}
         <Select
@@ -83,7 +82,7 @@ const SelectByGroup = forwardRef(
           required={optional}
           {...props}
         />
-        {error && <span className="error">{error}</span>}
+        {error && <span className={styles.errorText}>{error}</span>}
       </div>
     );
   }
