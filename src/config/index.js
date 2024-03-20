@@ -18,6 +18,9 @@ const urls = {
     create: '/productPacking',
     getAll: '/productPackings',
   },
+  contract: {
+    create: '/contract',
+  },
 };
 
 const config = {

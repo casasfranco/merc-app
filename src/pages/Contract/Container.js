@@ -121,7 +121,7 @@ const Container = ({
                 optional
                 label="FCL"
                 {...field}
-                error={errors?.contract?.containers?.[index].fcl?.message}
+                error={errors?.contract?.containers?.[index]?.fcl?.message}
               />
             )}
           />

@@ -11,6 +11,7 @@ import {
   Page,
   CustomSelect,
   TextArea,
+  Loading,
 } from '../../components';
 import { useForm, useModel } from '../../lib/hooks';
 import {
@@ -26,6 +27,7 @@ const Contract = () => {
   const { showError } = useError();
   const { getAllPackings, getAllProducts } = useModel.product.dispatch();
   const { getAllCompanies } = useModel.company.dispatch();
+  const { create } = useModel.contract.dispatch();
   const {
     products: { transformedProducts },
     packings: { transformedPackings },
@@ -35,6 +37,7 @@ const Contract = () => {
   } = useModel.company();
 
   const form = useForm({
+    mode: 'onChange',
     defaultValues: {
       contract: {
         date: null,
@@ -52,6 +55,13 @@ const Contract = () => {
         containers: [],
       },
     },
+    onError: async ({ err, setFormError, defaultOnError }) => {
+      if (err.statusCode) {
+        setFormError(err);
+      } else {
+        await defaultOnError();
+      }
+    },
   });
   const {
     register,
@@ -62,12 +72,14 @@ const Contract = () => {
     setValue,
     setFormError,
     formError,
+    reset,
   } = form;
 
   const [fetchDataFlag, setFetchDataFlag] = useState(true);
   const [allowDelete, setAllowDelete] = useState(false);
   const [step, setStep] = useState(1);
   const [containers, setConteiners] = useState([{}]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -108,9 +120,6 @@ const Contract = () => {
 
   const incotermSelected = watch('contract.incoterm');
   const containersLoaded = watch('contract.containers');
-  // const disableNextStep = containersLoaded.some(
-  //   (container) => container.product === undefined
-  // );
 
   const isRequiredFreeDaysPOD =
     incotermSelected === INCOTERMS.CFR || incotermSelected === INCOTERMS.CIF;
@@ -121,8 +130,17 @@ const Contract = () => {
       : 'Administrar tandas de envíos';
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-    setFormError(null);
+    try {
+      console.log(data);
+      setLoading(true);
+      await create(data);
+      setFormError(null);
+      setLoading(false);
+    } catch (error) {
+      setFormError(`${error}`);
+      setLoading(false);
+      reset();
+    }
   });
 
   const goToNextStep = () => {
@@ -137,6 +155,12 @@ const Contract = () => {
       }
     )();
   };
+
+  const goToPreviusStep = () => {
+    setStep((currentStep) => currentStep - 1);
+  };
+
+  if (loading) return <Loading />;
 
   return (
     <Page title={pageTitle}>
@@ -215,7 +239,7 @@ const Contract = () => {
                   />
                 </Form.Col>
               </Form.Row>
-              <Form.Row>
+              {/* <Form.Row>
                 <Form.Col>
                   <DateInput
                     label="ETD"
@@ -236,7 +260,7 @@ const Contract = () => {
                     optional
                   />
                 </Form.Col>
-              </Form.Row>
+              </Form.Row> */}
               <Form.Row className="mb-2 md:mb-4 ">
                 <Form.Col>
                   <Input
@@ -310,24 +334,29 @@ const Contract = () => {
       </Page.Section>
       <Page.Buttons>
         {step === 1 && (
-          <Button
-            type="button"
-            color="navy"
-            onClick={goToNextStep}
-            loading={isSubmitting}
-          >
+          <Button type="button" color="navy" onClick={goToNextStep}>
             Siguiente
           </Button>
         )}
         {step === 2 && (
-          <Button
-            type="submit"
-            color="navy"
-            onClick={onSubmit}
-            loading={isSubmitting}
-          >
-            Guardar
-          </Button>
+          <>
+            <Button
+              type="button"
+              color="navy"
+              onClick={goToPreviusStep}
+              loading={isSubmitting}
+            >
+              Anterior
+            </Button>
+            <Button
+              type="submit"
+              color="navy"
+              onClick={onSubmit}
+              loading={isSubmitting}
+            >
+              Guardar
+            </Button>
+          </>
         )}
       </Page.Buttons>
     </Page>

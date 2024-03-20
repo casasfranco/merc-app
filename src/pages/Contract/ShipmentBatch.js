@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Icon, Input, Page } from '../../components';
+import { Button, DateInput, Form, Icon, Input, Page } from '../../components';
 import { Controller, useFieldArray } from 'react-hook-form';
 // import { containerTypesGroupSelect } from '../../lib/constants';
 import { getContainerFormatted } from '../../lib/helpers';
@@ -33,7 +33,6 @@ const ShipmentBatch = ({
   useEffect(() => {
     // Solo inicializamos si aún no hay ningún shipmentBatch
     const currentBatches = watch('contract.shipmentBatch');
-    console.log({ currentBatches });
     if (!currentBatches || currentBatches.length === 0) {
       const initialContainers = createContainersWithIds();
       setValue('contract.shipmentBatch', [{ containers: initialContainers }]);
@@ -57,8 +56,6 @@ const ShipmentBatch = ({
       }, 500);
     }
   };
-
-  console.log(watch('contract.shipmentBatch'));
 
   return (
     <>
@@ -87,7 +84,7 @@ const ShipmentBatch = ({
                 </div>
               </div>
             )}
-            <Form.Row className="mt-2">
+            <Form.Row className="bg-fuchsia-50 p-5 rounded mb-3">
               <Form.Col>
                 {containerList.map(
                   (
@@ -118,7 +115,7 @@ const ShipmentBatch = ({
                                 error={
                                   errors?.contract?.shipmentBatch?.containers?.[
                                     container.id
-                                  ]?.batchs.message
+                                  ]?.quantity.message
                                 }
                                 {...field}
                               />
@@ -133,6 +130,42 @@ const ShipmentBatch = ({
                     </>
                   )
                 )}
+              </Form.Col>
+            </Form.Row>
+            <Form.Row className="bg-sky-200 p-5 rounded">
+              <Form.Col>
+                <Controller
+                  name={`contract.shipmentBatch[${batchIndex}].eta`}
+                  control={control}
+                  render={({ field }) => (
+                    <DateInput
+                      label="ETA"
+                      error={
+                        errors?.contract?.shipmentBatch?.[batchIndex]?.eta
+                          ?.message
+                      }
+                      {...field}
+                      optional
+                    />
+                  )}
+                />
+              </Form.Col>
+              <Form.Col>
+                <Controller
+                  name={`contract.shipmentBatch[${batchIndex}].etd`}
+                  control={control}
+                  render={({ field }) => (
+                    <DateInput
+                      label="ETD"
+                      error={
+                        errors?.contract?.shipmentBatch?.[batchIndex]?.etd
+                          ?.message
+                      }
+                      {...field}
+                      optional
+                    />
+                  )}
+                />
               </Form.Col>
             </Form.Row>
           </Page.Section>

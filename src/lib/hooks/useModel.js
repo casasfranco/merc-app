@@ -12,6 +12,7 @@ const useModel = {
   session: createModelHook('session'),
   user: createModelHook('user'),
   company: createModelHook('company'),
+  contract: createModelHook('contract'),
   updated: createModelHook('updated'),
 };
 
