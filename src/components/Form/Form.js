@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './Form.module.css';
+import classnames from 'tailwindcss-classnames';
 
 const Form = (props) => {
   const handleSubmit = (e) => {
@@ -22,9 +23,13 @@ const Form = (props) => {
   );
 };
 
-const Row = ({ children }) => <div className={styles.row}>{children}</div>;
+const Row = ({ children, className }) => (
+  <div className={classnames(styles.row, className)}>{children}</div>
+);
 
-const Col = ({ children }) => <div className={styles.col}>{children}</div>;
+const Col = ({ children, className }) => (
+  <div className={classnames(styles.col, className)}>{children}</div>
+);
 
 Form.Row = Row;
 Form.Col = Col;

@@ -1,4 +1,4 @@
-import queries from './queries';
-import mutations from './mutations';
+import userQueries from './userQueries';
+import userMutations from './userMutations';
 
-export { queries, mutations };
+export { userQueries, userMutations };

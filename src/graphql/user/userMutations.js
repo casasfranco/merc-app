@@ -1,4 +1,4 @@
-const mutations = {
+const userMutations = {
   LOGIN: `
             mutation Login($loginInput: LoginInput!) {
                 login(loginInput: $loginInput) {
@@ -12,4 +12,4 @@ const mutations = {
                 }
             }`,
 };
-export default mutations;
+export default userMutations;

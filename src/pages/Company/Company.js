@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Error, Form, Input, Page } from '../../components';
+import { Button, Error, Form, Input, Page, TextArea } from '../../components';
 import { useForm } from '../../lib/hooks';
 
 import NewAddress from './NewAddress';
@@ -54,6 +54,17 @@ const Company = () => {
                 })}
               />
             </Form.Col>
+          </Form.Row>
+          <Form.Row>
+            <TextArea
+              label="Notas"
+              maxLength={100}
+              minRows={3}
+              {...register('company.notes', {
+                required: 'Required',
+              })}
+              error={errors?.company?.notes?.message}
+            />
           </Form.Row>
           <NewAddress register={register} errors={errors} />
         </Form>

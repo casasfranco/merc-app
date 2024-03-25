@@ -6,7 +6,7 @@ import {
   Input,
   Loading,
   Page,
-  Select,
+  CustomSelect,
 } from '../../components';
 import { useForm, useModel } from '../../lib/hooks';
 import { measureUnitsSelect } from '../../lib/constants';
@@ -16,8 +16,11 @@ import {
 } from '../../lib/services/product';
 import { validateQuantityOfProductNumber } from '../../lib/validations';
 import InfoModal from './InfoModal';
+import { useError } from '../../lib/hoc/ErrorContext';
 
 const Product = () => {
+  const { showError } = useError(); // Usa el hook useError
+
   const [fetchDataFlag, setFetchDataFlag] = useState(true);
   const [existingProduct, setExistingProduct] = useState(null);
   const { getAllPackings, getAllProducts } = useModel.product.dispatch();
@@ -48,8 +51,10 @@ const Product = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await getAllPackings();
-      await getAllProducts();
+      const packingError = await getAllPackings();
+      const productError = await getAllProducts();
+
+      showError(productError?.error ?? packingError?.error);
     }
     if (fetchDataFlag) fetchData();
     setFetchDataFlag(false);
@@ -120,7 +125,7 @@ const Product = () => {
           </Form.Row>
           <Form.Row>
             <Form.Col>
-              <Select
+              <CustomSelect
                 label="Empaque"
                 error={errors?.packingId?.message}
                 options={
@@ -163,9 +168,9 @@ const Product = () => {
                   />
                 </Form.Col>
                 <Form.Col>
-                  <Select
+                  <CustomSelect
                     label="Unidad"
-                    error={errors?.product?.packing?.unit.message}
+                    error={errors?.product?.packing?.unit?.message}
                     options={measureUnitsSelect}
                     {...register('packing.unit', {
                       required: 'Required',

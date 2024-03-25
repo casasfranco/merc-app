@@ -1,6 +1,10 @@
 const urls = {
   user: {
     login: '/login',
+    revalidate: '/revalidate',
+  },
+  company: {
+    getAll: '/companies',
   },
   product: {
     create: '/product',
@@ -13,6 +17,9 @@ const urls = {
   productPackingRelation: {
     create: '/productPacking',
     getAll: '/productPackings',
+  },
+  contract: {
+    create: '/contract',
   },
 };
 

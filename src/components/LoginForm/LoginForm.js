@@ -36,9 +36,9 @@ const LoginForm = () => {
 
     if (result.error) {
       setError(result.error);
-      showError(result.error); // Utiliza showError para mostrar el error
+      showError(result.error);
     } else {
-      navigate('/home'); // Navega en caso de éxito
+      navigate('/home');
     }
   });
 

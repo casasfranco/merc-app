@@ -1,0 +1,28 @@
+.label {
+  @apply text-base text-warm-gray block leading-6;
+}
+
+.input {
+  @apply mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-indigo-500;
+}
+
+.success {
+  @apply border-success outline-none focus:shadow-success;
+}
+
+.error {
+  @apply border-error outline-none focus:shadow-error;
+}
+
+.errorContainer {
+  margin-top: 6px;
+  min-height: 22px;
+}
+
+.errorText {
+  @apply text-sm text-error flex flex-row-reverse;
+}
+
+.disabled {
+  @apply bg-disabled-light border-disabled-light text-disabled cursor-not-allowed;
+}
