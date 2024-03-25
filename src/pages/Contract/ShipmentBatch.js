@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Button, DateInput, Form, Icon, Input, Page } from '../../components';
+import {
+  Button,
+  Checkbox,
+  DateInput,
+  Form,
+  Icon,
+  Input,
+  Page,
+} from '../../components';
 import { Controller, useFieldArray } from 'react-hook-form';
-// import { containerTypesGroupSelect } from '../../lib/constants';
 import { getContainerFormatted } from '../../lib/helpers';
 
 const ShipmentBatch = ({
@@ -101,9 +108,9 @@ const ShipmentBatch = ({
                             )}
                           </p>
                         </Form.Col>
-                        <Form.Col>
+                        <Form.Col className="max-w-36">
                           <Controller
-                            name={`contract.shipmentBatch[${batchIndex}].containers.${container.id}.quantity`} // Ajustamos el name para acceder correctamente a cada container
+                            name={`contract.shipmentBatch[${batchIndex}].containers.${container.id}.quantity`}
                             control={control}
                             rules={{ required: 'Este campo es requerido' }}
                             render={({ field }) => (
@@ -118,6 +125,24 @@ const ShipmentBatch = ({
                                   ]?.quantity.message
                                 }
                                 {...field}
+                              />
+                            )}
+                          />
+                        </Form.Col>
+                        <Form.Col className={'justify-center max-w-20'}>
+                          <Controller
+                            name={`contract.shipmentBatch[${batchIndex}].containers.${container.id}.fcl`}
+                            control={control}
+                            render={({ field }) => (
+                              <Checkbox
+                                optional
+                                label="FCL"
+                                {...field}
+                                error={
+                                  errors?.contract?.shipmentBatch?.containers?.[
+                                    container.id
+                                  ]?.fcl.message
+                                }
                               />
                             )}
                           />

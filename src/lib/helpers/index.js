@@ -40,38 +40,20 @@ export const mapContractData = (contractData) => {
     isActive: batch.isActive,
   }));
 
-  console.log(mappedData);
+  // Convertir las cantidades en los lotes de envío ("shipmentBatch")
+  if (mappedData.shipmentBatch) {
+    mappedData.shipmentBatch.forEach((batch) => {
+      // Iterar sobre los contenedores de cada lote de envío
+      for (const containerId in batch.containers) {
+        if (
+          Object.prototype.hasOwnProperty.call(batch.containers, containerId)
+        ) {
+          const container = batch.containers[containerId];
+          // Convertir la cantidad a entero
+          container.quantity = parseInt(container.quantity);
+        }
+      }
+    });
+  }
   return mappedData;
 };
-
-// export const mapContractData = (contractData) => {
-//   const mappedData = {
-//     date: contractData.date,
-//     quantity: parseFloat(contractData.quantity),
-//     price: parseFloat(contractData.price),
-//     payment: contractData.payment,
-//     incoterm: contractData.incoterm,
-//     etd: contractData.etd,
-//     eta: contractData.eta,
-//     notes: contractData.notes,
-//     companyBuyerId: contractData.companyBuyer,
-//     companySellerId: contractData.companySeller,
-//     isActive: true,
-//   };
-
-//   // Mapeo de containers, transformándolos a la estructura esperada por el backend
-//   mappedData.containers = contractData.containers?.map((container) => ({
-//     id: container?.id,
-//     product: container?.product,
-//     harvest: parseInt(container?.harvest),
-//     containerType: container?.containerType,
-//     fcl: container?.fcl,
-//   }));
-
-//   mappedData.shipmentBatch = {
-//     ...contractData.shipmentBatch,
-//   };
-
-//   console.log(mappedData);
-//   return mappedData;
-// };

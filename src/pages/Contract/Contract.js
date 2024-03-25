@@ -46,8 +46,6 @@ const Contract = () => {
         quantity: '',
         price: '',
         payment: '',
-        etd: null,
-        eta: null,
         freeDaysPOD: '',
         incoterm: '',
         mercTaxId: false,
@@ -239,28 +237,6 @@ const Contract = () => {
                   />
                 </Form.Col>
               </Form.Row>
-              {/* <Form.Row>
-                <Form.Col>
-                  <DateInput
-                    label="ETD"
-                    error={errors?.contract?.etd?.message}
-                    {...register('contract.etd', {
-                      required: 'Required',
-                      valueAsDate: true,
-                    })}
-                  />
-                </Form.Col>
-                <Form.Col>
-                  <DateInput
-                    label="ETA"
-                    error={errors?.contract?.eta?.message}
-                    {...register('contract.eta', {
-                      valueAsDate: true,
-                    })}
-                    optional
-                  />
-                </Form.Col>
-              </Form.Row> */}
               <Form.Row className="mb-2 md:mb-4 ">
                 <Form.Col>
                   <Input

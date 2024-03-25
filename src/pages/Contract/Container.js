@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  Checkbox,
   Form,
   Icon,
   Input,
@@ -112,20 +111,7 @@ const Container = ({
             )}
           />
         </Form.Col>
-        <Form.Col className={'justify-center'}>
-          <Controller
-            name={`contract.containers[${index}].fcl`}
-            control={control}
-            render={({ field }) => (
-              <Checkbox
-                optional
-                label="FCL"
-                {...field}
-                error={errors?.contract?.containers?.[index]?.fcl?.message}
-              />
-            )}
-          />
-        </Form.Col>
+        <Form.Col />
       </Form.Row>
     </Page.Section>
   );
